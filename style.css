@@ -3,3 +3,11 @@ header {
     margin: 10px auto;
     border-radius: 20px;
 }
+
+.bold {
+	font-weight: bold;
+}
+
+.unstyled {
+	list-style: none;
+}
