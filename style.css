@@ -11,3 +11,8 @@ header {
 .unstyled {
 	list-style: none;
 }
+
+.exercise {
+	font-style: italic;
+	text-decoration: underline;
+}
