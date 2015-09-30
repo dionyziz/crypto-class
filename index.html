@@ -17,7 +17,7 @@
                 <p>Χειμερινό εξάμηνο 2015-2016, ΕΜΠ</p>
             </header>
 
-            <h2 class='page-header'>Υπεύθυνοι καθηγητές</h3>
+            <h2 class='page-header'>Υπεύθυνοι καθηγητές</h2>
             <ul>
                 <li>Άρης Παγουρτζής</li>
                 <li>Παναγιώτης Τσανάκας</li>
@@ -32,7 +32,7 @@
                 <li>Διονύσης Ζήνδρος (dionyziz@gmail.com)</li>
             </ul>
                 
-            <h2 class='page-header'>Βοηθοί μαθήματος</h3>
+            <h2 class='page-header'>Βοηθοί μαθήματος</h2>
             <ul>
 				<li>Ζέτα Αβαρικιώτη (zavarikioti@gmail.com)</li>
                 <li>Σωκράτης Βίδρος (sokratis.vidros@gmail.com)</li>
@@ -94,6 +94,8 @@
 					Όλο το υλικό θα <span class='bold'>βιντεοσκοπηθεί</span> και θα <span class='bold'>δημοσιευθεί!</span>
 				</p>
 				<p>Το υλικό του μαθήματος έχει άδεια <span class='bold'>Creative Commons ΒΥ (CC BY).</span></p>
+				
+				<!-- Material -->
 				<h2 class='page-header' id='material'>Η ύλη αναλυτικά</h2>
 				<ol>
 					<li><span class='bold'>Ιστορική κρυπτογραφία.</span> Διαδικαστικά του μαθήματος.
@@ -108,20 +110,21 @@
 						δείκτη σύμπτωσης.</li>
 					</ul>
 					</li>
-					<li><span class='bold'>One-time pad.</span> Τέλεια μυστικότητα. Semantic security, CPA, CCA, PCPA.</li>
+					<li><span class='bold'>Μοντέλα και Αποδείξεις Ασφάλειας στην Κρυπτογραφία.</span> Τέλεια μυστικότητα (Παράδειγμα:One-time pad) . Μοντέλα Επιθέσεων (CO, KPA, CPA, CCA), Semantic security, Indistinguishability, Γενική Μορφή Αποδείξεων Μέσω Αναγωγών.</li>
+					<li><span class='bold'>Stream ciphers.</span> Γεννήτριες τυχαίων αριθμών. Blum Blum Shub. Stream ciphers. RC4.</li>
 					<li><span class='bold'>Hashes.</span> Επισκόπηση θεωρίας πολυπλοκότητας. Κλάσεις πολυπλοκότητας P και NP. NP-hardness. One-way functions. Επέκταση κλειδιού, PBKDF. Hash functions. Collision resistance. Κατασκευή Merkle-Damgård.</li>
 					<li><span class='bold'>Εφαρμογές hash.</span> Range-collision resistance. Οι συναρτήσεις MD5, SHA256, RIPEMD, bcrypt και scrypt. Δέντρα Merkle. Ασφαλής αποθήκευση κωδικών πρόσβασης. Αλάτι. Hash commitment / timestamping.
 					<ul class='unstyled'>
 						<li><span class='exercise'>Άσκηση:</span> Αντιστρέψτε ένα SHA256 hash.</li>
 					</ul>
 					</li>
-					<li><span class='bold'>Stream ciphers.</span> Γεννήτριες τυχαίων αριθμών. Blum Blum Shub. Stream ciphers. RC4.</li>
+					
+					<li><span class='bold'>HMAC.</span></li>
 					<li><span class='bold'>Block ciphers.</span> AES. Πολυώνυμα. Modes of operation: ECB, CBC, CTR. IVs.
 					<ul class='unstyled'>
 						<li><span class='exercise'>Άσκηση:</span> Βρείτε τι δείχνει μία εικόνα που έχει κρυπτογραφηθεί με ECB AES με άγνωστο κλειδί.</li>
 					</ul>
 					</li>
-					<li><span class='bold'>HMAC.</span></li>
 					<li><span class='bold'>Θεωρία αριθμών I.</span> Αριθμητική modulo. Διαιρετότητα. Θεμελιώδες θεώρημα της αριθμητικής, με απόδειξη. Αλγόριθμος Ευκλείδη και επεκτεταμένος αλγόριθμος. Υπολογισμός αντιστρόφου. Πολυπλοκότητα αντιστροφής.
 					<ul class='unstyled'>
 						<li><span class='exercise'>Άσκηση:</span> Να βρεθούν (μεγάλοι) αντίστροφοι.</li>
@@ -148,7 +151,8 @@
 						<li><span class='exercise'>Άσκηση:</span> “Σπάσιμο” RSA όταν έχουν χρησιμοποιηθεί δημόσια κλειδιά με κοινούς πρώτους παράγοντες. Διανομή ενός κρυπτογραφημένου μηνύματος και δημόσιου κλειδιού σε κάθε φοιτητή για τα οποία θα υπάρχει αντίστοιχο κλειδί άλλου φοιτητή με κοινό πρώτο.</li>
 					</ul>
 					</li>
-					<li><span class='bold'>Diffie-Hellman.</span> Διακριτός λογάριθμος. Ο αλγόριθμος Diffie-Hellman. CDH, DDH. Σχέση με DLOG. Το σύστημα ElGamal. Ορισμός ασφαλείας. Ιδιότητες CPA, CCA. Malleability Ομορμορφισμοί. Πιστοποιημένος Diffie-Hellman.</li>
+					<li><span class='bold'>Κρυπτογραφία Διακριτού Λογαρίθμου Ι.</span> Ορισμός διακριτού λογαρίθμου. Ανταλλαγή Κλειδιών Diffie-Hellman. CDH, DDH. Σχέση με DLOG. Το κρυπτοσύστημα ElGamal. Ορισμός ασφαλείας. Ιδιότητες CPA, CCA. Malleability Ομομορφικές Ιδιότητες.</li>
+					<li><span class='bold'>Κρυπτογραφία Διακριτού Λογαρίθμου ΙΙ.</span>Ελλειπτικές Καμπύλες, Θεωρητικό Υπόβαθρο, Κριτήρια Επιλογής, Το πρόβλημα DLOG και κρυπτοσυστήματα EC.</li>
 					<li><span class='bold'>Ψηφιακές υπογραφές.</span> Εξισώσεις ορθότητας. Ορισμός Ασφάλειας. Ψηφιακές υπογραφές με RSA. (απλές - hash) απόδειξη ασφαλείας στο μοντέλο του τυχαίο μαντείου. Ψηφιακές υπογραφές ElGamal.</li>
 					<li><span class='bold'>Κρυπτογραφία στο web.</span> SSL/TLS. HTTPS. Forward secrecy. sslstrip. HSTS. Certificate authorities. Certificate chains. Certificate pinning.</li>
 					<li><span class='bold'>Επιθέσεις στο HTTPS.</span> MITM. Επιθέσεις side-channel: CRIME, BREACH, POODLE.</li>
@@ -158,7 +162,6 @@
 						<li><span class='exercise'>Άσκηση:</span> Δημιουργία hidden service.</li>
 					</ul>
 					</li>
-					<li><span class='bold'>Ελλειπτικές καμπύλες.</span></li>
 					<li><span class='bold'>Zero-knowledge proofs of knowledge.</span> Τυπικός Ορισμός και Παραλλαγές σχέση με πολυπλοκότητα (Ισομορφισμός Γραφημάτων,  3-Χρωματισμός) Σ-Πρωτόκολλα  (Schnorr, Chaum Pedersen) Μη διαλογικές αποδείξεις (Fiat-Shamir Heuristic), Εφαρμογές (Σχήματα ταυτοποίησης Non-Malleable Crypto-Cramer Shoup)</li>
 					<li><span class='bold'>Ψηφιακές ψηφοφορίες.</span> Ομομορφικά συστήματα. Μixnets. Τυφλές υπογραφές του Chaum.</li>
 					<li><span class='bold'>Blockchain.</span> Consensus. Proof of work. Bitcoin. Συναλλαγές. Ο γράφος συναλλαγών. Ρέστα.
