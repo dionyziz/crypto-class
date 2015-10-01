@@ -1,9 +1,16 @@
+<!DOCTYPE html>
 {% load bootstrap3 %}
+<html>
+	<head>
+		<title>Κρυπτογραφία</title>
+		{% bootstrap_css %}
+		{% bootstrap_javascript %}
+	</head>
 
-{% bootstrap_css %}
-{% bootstrap_javascript %}
+	<body>
+		{% bootstrap_messages %}
 
-{% bootstrap_messages %}
-
-{% block maincontent %}
-{% endblock %}
+		{% block maincontent %}
+		{% endblock %}
+	</body>
+</html>
