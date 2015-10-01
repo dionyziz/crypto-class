@@ -20,6 +20,7 @@ import cryptoclass.forms as forms
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^exercises/', include('exercises.urls')),
     url(r'^login', auth_views.login, {'authentication_form': forms.CryptoAuthenticationForm }),
     url(r'^', include('django.contrib.auth.urls'))
 ]
