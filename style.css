@@ -16,3 +16,19 @@ header {
 	font-style: italic;
 	text-decoration: underline;
 }
+
+.underline {
+	text-decoration: underline;
+}
+
+.italic {
+	font-style: italic;
+}
+
+.credits {
+	text-align: center;
+	
+	border-bottom: solid #959595 2px;
+	margin-top: 5%;
+	padding: 1%;
+}
