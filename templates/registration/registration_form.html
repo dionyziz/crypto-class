@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% load bootstrap3 %}
+
+{% block maincontent %}
+
+<form method="post" action="{% url 'registration_register' %}">
+{% csrf_token %}
+{% bootstrap_form form %}
+{% buttons %}
+<input type="submit" value="Εγγραφή" class="btn btn-success" />
+{% endbuttons %}
+</form>
+
+<p><a href="{% url 'login' %}">Έχεις ήδη λογαριασμό;</a></p>
+
+{% endblock %}
