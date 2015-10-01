@@ -1,18 +1,30 @@
+{% extends "base.html" %}
+
 {% load bootstrap3 %}
 
-{% bootstrap_css %}
-{% bootstrap_javascript %}
+{% block maincontent %}
 
-{% bootstrap_messages %}
+{% if form.errors %}
+<p>Ο κωδικός δεν είναι σωστός. Προσπάθησε ξανά.</p>
+{% endif %}
 
-hello
+{% if next %}
+    {% if user.is_authenticated %}
+    <p>Δεν έχεις δικαίωμα να δεις αυτή τη σελίδα. Δοκίμασε να συνδεθείς με άλλο λογαριασμό.</p>
+    {% else %}
+    <p>Η πρόσβαση σε αυτή τη σελίδα απαιτεί σύνδεση με λογαριασμό.</p>
+    {% endif %}
+{% endif %}
 
-<form action="/url/to/submit/" method="post" class="form">
-    {% csrf_token %}
-    {% bootstrap_form form %}
-    {% buttons %}
-        <button type="submit" class="btn btn-primary">
-            {% bootstrap_icon "star" %} Submit
-        </button>
-    {% endbuttons %}
+<form method="post" action="{% url 'django.contrib.auth.views.login' %}" class="form">
+{% csrf_token %}
+{% bootstrap_form form %}
+{% buttons %}
+<input type="submit" value="Σύνδεση" class="btn btn-success" />
+<input type="hidden" name="next" value="{{ next }}" />
+{% endbuttons %}
 </form>
+
+<p><a href="{% url 'password_reset' %}">Έχασες το κωδικό σου?</a></p>
+
+{% endblock %}
