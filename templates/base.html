@@ -3,8 +3,9 @@
 <html>
 	<head>
 		<title>Κρυπτογραφία</title>
+
 		{% bootstrap_css %}
-		{% bootstrap_javascript %}
+		<link rel="stylesheet" type="text/css" href="static/css/style.css">
 	</head>
 
 	<body>
@@ -14,5 +15,8 @@
 		{% block maincontent %}
 		{% endblock %}
 		</div>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		{% bootstrap_javascript %}
 	</body>
 </html>

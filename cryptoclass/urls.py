@@ -23,7 +23,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/register/complete/', RedirectView.as_view(url='/exercises', permanent=True), name='registration_complete'),
     url(r'^accounts/', include('registration.backends.simple.urls')),
-    url(r'^exercises/', include('exercises.urls'), name='exercise_index'),
-    url(r'^login', auth_views.login, {'authentication_form': forms.CryptoAuthenticationForm }),
-    url(r'^', include('django.contrib.auth.urls'))
+    url(r'^accounts/login', auth_views.login, {'authentication_form': forms.CryptoAuthenticationForm }),
+    url(r'^accounts/', include('django.contrib.auth.urls')),
+    url(r'^', include('exercises.urls'), name='exercise_index'),
 ]
