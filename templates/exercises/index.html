@@ -4,6 +4,10 @@
 
 {% block maincontent %}
 
+{% if user.is_authenticated %}
+<p>Γειά σου, {{ user.username }}. <a href="{% url 'logout' %}">Αποσύνδεση</a></p>
+{% endif %}
+
 Δεν έχουν ανακοινωθεί ασκήσεις ακόμη.
 
 {% endblock %}
