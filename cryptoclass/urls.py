@@ -14,16 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf.urls import include, url
-from django.views.generic.base import RedirectView
 from django.contrib import admin
-from django.contrib.auth import views as auth_views
-import cryptoclass.forms as forms
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^accounts/register/complete/', RedirectView.as_view(url='/exercises', permanent=True), name='registration_complete'),
-    url(r'^accounts/', include('registration.backends.simple.urls')),
-    url(r'^accounts/login', auth_views.login, {'authentication_form': forms.CryptoAuthenticationForm }),
-    url(r'^accounts/', include('django.contrib.auth.urls')),
+    url(r'^accounts/', include('accounts.urls')),
     url(r'^', include('exercises.urls'), name='exercise_index'),
 ]
