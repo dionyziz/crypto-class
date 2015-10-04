@@ -37,6 +37,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'accounts',
+    'exercises',
     'bootstrap3',
     'registration'
 )
@@ -176,3 +178,8 @@ ACCOUNT_ACTIVATION_DAYS = 30
 REGISTRATION_EMAIL_HTML = True
 REGISTRATION_AUTO_LOGIN = True
 REGISTRATION_OPEN = True
+AUTH_PROFILE_MODEL = 'accounts.UserProfile'
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
+LANGUAGE_CODE = "el"
