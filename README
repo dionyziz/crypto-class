@@ -1,0 +1,14 @@
+How to build and run using docker:
+
+Build:
+	$ docker build -t cryptoclass .
+
+Run:
+	$ docker run --net=host cryptoclass -d
+
+Using net=host allows you to see the output in http://localhost:8000.
+
+You can also set environment variables for the database:
+	$ docker run --net=host -e DB_USER=db_user -e DB_PASS=db_password
+
+You can also set DB_HOST and DB_PORT
