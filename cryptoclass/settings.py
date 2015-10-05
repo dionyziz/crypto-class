@@ -40,7 +40,6 @@ INSTALLED_APPS = (
     'accounts',
     'exercises',
     'bootstrap3',
-    'registration'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -174,7 +173,6 @@ BOOTSTRAP3 = {
 
 # Registration app settings
 
-ACCOUNT_ACTIVATION_DAYS = 30
 REGISTRATION_EMAIL_HTML = True
 REGISTRATION_AUTO_LOGIN = True
 REGISTRATION_OPEN = True
