@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% load bootstrap3 %}
+
+{% block maincontent %}
+
+{% if user.is_authenticated %}
+    <p>Γειά σου, {{ user.username }}. <a href="{% url 'logout' %}">Αποσύνδεση</a></p>
+    
+    {% if exercise %}
+    <h1> {{ exercise.title }} </h1>
+
+    
+    {{ exercise.description }}
+
+     
+    <b>Προθεσμία: {{ exercise.deadline }} </b> <br/>
+    
+    {% endif %}
+
+{% endif %}
+
+{% endblock %}

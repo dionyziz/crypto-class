@@ -5,9 +5,27 @@
 {% block maincontent %}
 
 {% if user.is_authenticated %}
-<p>Γειά σου, {{ user.username }}. <a href="{% url 'logout' %}">Αποσύνδεση</a></p>
-{% endif %}
+    <p>Γειά σου, {{ user.username }}. <a href="{% url 'logout' %}">Αποσύνδεση</a></p>
+    
+    {% if exercise_list %}
+        <table>
+            <tr>
+                <th>#</th>
+                <th>Τίτλος άσκησης <th>
+            </tr>
+            {% for exercise in exercise_list %}
+            <tr>
+                <td>{{ exercise.tag }} </td>
+                <td><a href="{{ exercise.tag }}/">{{ exercise.title }}</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p> Δεν έχουν ανακοινωθεί ασκήσεις ακόμη. </p>
+    {% endif %}
 
-Δεν έχουν ανακοινωθεί ασκήσεις ακόμη.
+{% else %}
+<p>Δεν έχεις δικαίωμα να δεις την αυτή την σελίδα.</p>
+{% endif %}
 
 {% endblock %}
