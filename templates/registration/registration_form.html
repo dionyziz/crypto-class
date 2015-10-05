@@ -3,15 +3,15 @@
 {% load bootstrap3 %}
 
 {% block maincontent %}
-
-<form method="post" action="{% url 'registration_register' %}">
-{% csrf_token %}
-{% bootstrap_form form %}
-{% buttons %}
-<input type="submit" value="Εγγραφή" class="btn btn-success" />
-{% endbuttons %}
-</form>
-
-<p><a href="{% url 'login' %}">Έχεις ήδη λογαριασμό;</a></p>
+<div class="container">
+    <form method="post" action="{% url 'registration_register' %}" class="form col-md-8 col-md-offset-2">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% buttons %}
+    <input type="submit" value="Εγγραφή" class="btn btn-success" />
+    {% endbuttons %}
+    <p><a href="{% url 'login' %}">Έχεις ήδη λογαριασμό;</a></p>
+    </form>
+</div>
 
 {% endblock %}
