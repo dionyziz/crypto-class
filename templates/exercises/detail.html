@@ -6,15 +6,17 @@
 <div class="container" class="col-md-8 col-md-offset-2">
     {% if user.is_authenticated %}
         <p>Γειά σου, {{ user.username }}. <a href="{% url 'logout' %}">Αποσύνδεση</a></p>
+    {% endif %}
         
-        {% if exercise %}
-            <h1> {{ exercise.title }} </h1>
+    {% if exercise %}
+        <h1> {{ exercise.title }} </h1>
 
-            <h5> <u>Προθεσμία:</u> {{ exercise.deadline }} </h5>
-            
-            <samp class"pre wrapped">{{ exercise.description }} </samp>
-            
-            <br></br>
+        <h5> <u>Προθεσμία:</u> {{ exercise.deadline }} </h5>
+        
+        <samp class"pre wrapped">{{ exercise.description }} </samp>
+        
+        <br></br>
+        {% if user.is_authenticated %}
             {% if can_be_submitted %}
                 {% if exercise.type == exercise.THEORETICAL %}
 
@@ -54,10 +56,7 @@
             {% else %}
                 <h4> Δεν υπάρχει υποβολή για την συγκεκριμένη άσκηση. </h4>
             {% endif %}
-
         {% endif %}
-    {% else %}
-    <p>Δεν έχεις δικαίωμα να δεις την αυτή την σελίδα.</p>
     {% endif %}
 </div>
 

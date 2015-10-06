@@ -29,7 +29,10 @@ def detail(request, exercise_tag):
     exercise = get_object_or_404(SubmittableExercise, tag=exercise_tag)
 
     user = request.user
-    submissions = exercise.submissions.filter(user=user).order_by('-time_submitted')
+    submissions = None
+
+    if not user.is_anonymous() and user.is_authenticated():
+        submissions = exercise.submissions.filter(user=user).order_by('-time_submitted')
 
     if exercise.type == exercise.AUTO_GRADING:
         if request.method == 'POST':
@@ -60,6 +63,7 @@ def detail(request, exercise_tag):
     #TODO: Check if user sees the exercise for the first time
     #       If so, generate the appropriate data
 
+    print submissions
     context = {
             'user': user,
             'exercise': exercise,
