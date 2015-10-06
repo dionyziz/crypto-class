@@ -4,6 +4,7 @@
 
 {% block maincontent %}
 
+<form method="post" action="{% url 'django.contrib.auth.views.login' %}" class="form col-md-4 col-md-offset-4">
 {% if next %}
     {% if user.is_authenticated %}
     <p>Δεν έχεις δικαίωμα να δεις αυτή τη σελίδα. Δοκίμασε να συνδεθείς με άλλο λογαριασμό.</p>
@@ -12,7 +13,6 @@
     {% endif %}
 {% endif %}
 
-<form method="post" action="{% url 'django.contrib.auth.views.login' %}" class="form col-md-4 col-md-offset-4">
 {% csrf_token %}
 {% bootstrap_form form %}
 {% buttons %}
