@@ -1,3 +1,7 @@
 FROM django:python2-onbuild
 
-CMD /bin/sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+RUN apt-get -qy update && apt-get install -y nginx && rm -rf /var/lib/apt/*
+
+COPY nginx.conf /etc/nginx/sites-available/default
+
+CMD /bin/sh -c "/etc/init.d/nginx start && python manage.py migrate && gunicorn --reload cryptoclass.wsgi"
