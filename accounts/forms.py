@@ -9,8 +9,8 @@ class StudentRegistrationForm(RegistrationFormUniqueEmail):
     last_name = forms.CharField(label=_(u"Last name"), max_length=120)
     # TODO: get from db
     department_choices = (
-        (u"ΕΜΠ ΣΕΜΦΕ", u"ΕΜΠ ΣΕΜΦΕ"),
         (u"ΕΜΠ ΗΜΜΥ", u"ΕΜΠ ΗΜΜΥ"),
+        (u"ΕΜΠ ΣΕΜΦΕ", u"ΕΜΠ ΣΕΜΦΕ"),
         (u"ΜΠΛΑ", u"ΜΠΛΑ"),
         (u"Άλλο", u"Άλλο"),
     )
