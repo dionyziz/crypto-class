@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
+from .models import BonusLink, BonusView, SubmittableExercise
 
-from .models import SubmittableExercise
 
 def homepage(request):
     context = {'user': request.user}
@@ -28,3 +29,10 @@ def detail(request, exercise_tag):
             'exercise': exercise
         }
     return render(request, 'exercises/detail.html', context)
+
+@login_required
+def bonuslink(request, secret):
+    link = get_object_or_404(BonusLink, secret=secret)
+    BonusView.objects.create(user=request.user, link=link)
+    context = {'user': request.user, 'link': link}
+    return render(request, 'exercises/bonuslink.html', context)

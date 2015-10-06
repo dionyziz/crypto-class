@@ -20,13 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'htc4ss^d_)-dj)6n=eqbbocfm)rsg2p53qpz4c+wzi(&xj*cew'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'htc4ss^d_)-dj)6n=eqbbocfm)rsg2p53qpz4c+wzi(&xj*cew')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', True)
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOST', '*')]
 
 # Application definition
 
@@ -40,7 +39,6 @@ INSTALLED_APPS = (
     'accounts',
     'exercises',
     'bootstrap3',
-    'registration'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -174,7 +172,6 @@ BOOTSTRAP3 = {
 
 # Registration app settings
 
-ACCOUNT_ACTIVATION_DAYS = 30
 REGISTRATION_EMAIL_HTML = True
 REGISTRATION_AUTO_LOGIN = True
 REGISTRATION_OPEN = True

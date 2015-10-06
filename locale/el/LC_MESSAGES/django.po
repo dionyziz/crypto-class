@@ -12,4 +12,10 @@ msgid "Department"
 msgstr "Σχολή"
 
 msgid "Student id"
-msgstr "ΑΕΜ"
+msgstr "Αριθμός Μητρώου"
+
+msgid "First name"
+msgstr "Όνομα"
+
+msgid "Last name"
+msgstr "Επίθετο"

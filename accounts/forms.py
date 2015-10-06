@@ -1,9 +1,18 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm
 from registration.forms import RegistrationFormUniqueEmail
 from django.utils.translation import ugettext as _
 
 class StudentRegistrationForm(RegistrationFormUniqueEmail):
-    department = forms.CharField(label=_(u"Department"), max_length=125)
-    student_id = forms.IntegerField(label=_(u"Student id"))
+    """The form displayed for account registration, includes fields for user profile"""
+    first_name = forms.CharField(label=_(u"First name"), max_length=120)
+    last_name = forms.CharField(label=_(u"Last name"), max_length=120)
+    # TODO: get from db
+    department_choices = (
+        (u"ΕΜΠ ΣΕΜΦΕ", u"ΕΜΠ ΣΕΜΦΕ"),
+        (u"ΕΜΠ ΗΜΜΥ", u"ΕΜΠ ΗΜΜΥ"),
+        (u"ΜΠΛΑ", u"ΜΠΛΑ"),
+        (u"Άλλο", u"Άλλο"),
+    )
+    department = forms.ChoiceField(label=_(u"Department"), choices=department_choices)
+    student_id = forms.CharField(label=_(u"Student id"), max_length=120)
