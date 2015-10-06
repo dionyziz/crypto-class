@@ -63,7 +63,6 @@ def detail(request, exercise_tag):
     #TODO: Check if user sees the exercise for the first time
     #       If so, generate the appropriate data
 
-    print submissions
     context = {
             'user': user,
             'exercise': exercise,
