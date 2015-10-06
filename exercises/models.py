@@ -2,9 +2,15 @@ from django.db import models
 from django.contrib import admin
 from django.contrib.auth.models import User
 
-<<<<<<< HEAD
 from django.db.models.query import EmptyQuerySet
 from django.contrib.auth.models import User
+
+class Submission(models.Model):
+    user = models.ForeignKey(User)
+    time_submitted = models.DateTimeField()
+
+    answer = models.CharField(max_length=1025)
+    is_solution = models.BooleanField()
 
 class SubmittableExercise(models.Model):
     # e.g. "1.1", "3.5" etc.
@@ -23,14 +29,12 @@ class SubmittableExercise(models.Model):
                             default=THEORETICAL
                             )
 
-    pub_date = models.DateTimeField()
     deadline = models.DateTimeField()
 
-    submissions = models.ManyToManyField(User, related_name='submissions', blank=True)
-    solutions = models.ManyToManyField(User, related_name='solutions', blank=True)
+    submissions = models.ManyToManyField(Submission, related_name='submissions', blank=True)
 
     # Applicable to theory exercises (folder to save pdfs)
-    save_dir = models.FilePathField(max_length=500, blank=True, null=False)
+    # save_dir = models.FilePathField(upload_to=settings.UPLOAD_DIR, blank=True, max_length=500)
 
     def __unicode__(self):
         return unicode("%s: %s" % (self.tag, self.title))
@@ -41,13 +45,6 @@ class SubmittableExercise(models.Model):
 
     def user_submitions(self, user):
         return self.submittions.objects.filter(username=user.username)
-
-
-class GiftExercise(models.Model):
-    tag = models.PositiveSmallIntegerField()
-    url = models.CharField(max_length=500)
-
-    solved_by = models.IntegerField()
 
 class BonusLink(models.Model):
     """A bonus link that when accessed gives extra points to the student.
