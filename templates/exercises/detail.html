@@ -13,8 +13,17 @@
 
         <h5> <u>Προθεσμία:</u> {{ exercise.deadline }} </h5>
         
-        <samp class"pre wrapped">{{ exercise.description }} </samp>
-        
+        <!--<samp class"pre wrapped">{{ exercise.description }} </samp>-->
+        {% if exercise.statement_url%}
+            <div class="row">
+                <iframe class="container" src="http://docs.google.com/gview?url={{ exercise.statement_url }}&embedded=true"
+                    frameborder="0" height="550px"></iframe>  
+            </div>
+        {% else %}
+        <br></br>
+        <h5>Δεν υπάρχει διαθέσιμη εκφώνηση. Παρακαλούμε προσπαθήστε αργότερα.</h5>
+        {% endif %}
+
         <br></br>
         {% if user.is_authenticated %}
             {% if exercise.can_be_submitted %}
