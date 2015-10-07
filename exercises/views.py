@@ -30,46 +30,60 @@ def detail(request, exercise_tag):
     user = request.user
     exercise = get_object_or_404(SubmittableExercise, tag=exercise_tag)
 
-    submissions = None
-    if not user.is_anonymous() and user.is_authenticated():
+    context = {
+        'user': user,
+        'exercise': exercise,
+    }
+
+    if user.is_authenticated():
         submissions = exercise.get_user_submissions(user)
 
-    if exercise.type == exercise.AUTO_GRADING:
-        if request.method == 'POST':
-            form = TextAnswerForm(request.POST)
+        if exercise.type == exercise.AUTO_GRADING:
+            if request.method == 'POST':
+                return handle_post_autograding_exercise(request, exercise, context)
+            else:
+                form = TextAnswerForm()
 
-            if form.is_valid():
-                answer = form.cleaned_data['answer']
+        elif exercise.type == exercise.THEORETICAL:
+            if request.method == 'POST':
+                return handle_post_theoretical_exercise(request, exercise, context)
+            else:
+                form = DocumentForm()
 
-                # Call grader here
-                is_solution = True
+        #TODO: Check if user sees the exercise for the first time
+        #       If so, generate the appropriate data
 
-                # Save submission
-                submission = Submission.objects.create(
-                        user=user,
-                        time_submitted=timezone.now(),
-                        answer=answer,
-                        is_solution=is_solution
-                        )
-                exercise.submissions.add(submission)
-
-                return HttpResponseRedirect(reverse('exercise_detail', kwargs={'exercise_tag': exercise_tag} ))
-        else:
-            form = TextAnswerForm()
-
-    elif exercise.type == exercise.THEORETICAL:
-        pass
-
-    #TODO: Check if user sees the exercise for the first time
-    #       If so, generate the appropriate data
-
-    context = {
-            'user': user,
-            'exercise': exercise,
+        context.update({
             'submissions': submissions,
             'form': form,
-        }
+        })
+
     return render(request, 'exercises/detail.html', context)
+
+def handle_post_autograding_exercise(request, exercise, context):
+    form = TextAnswerForm(request.POST)
+
+    if form.is_valid():
+        answer = form.cleaned_data['answer']
+
+        # Call grader here
+        is_solution = True
+
+        # Save submission
+        submission = Submission.objects.create(
+                user=request.user,
+                time_submitted=timezone.now(),
+                answer=answer,
+                is_solution=is_solution
+                )
+        exercise.submissions.add(submission)
+
+        return HttpResponseRedirect(reverse('exercise_detail', kwargs={'exercise_tag': exercise.tag} ))
+    else:
+        return render(request, 'exercises/detail.html', context)
+
+def handle_post_theoretical_exercise(request, user):
+    pass
 
 @login_required
 def bonuslink(request, secret):
