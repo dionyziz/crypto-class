@@ -17,11 +17,10 @@ class Submission(models.Model):
 class SubmittableExercise(models.Model):
     # e.g. "1.1", "3.5" etc.
     tag = models.CharField(max_length=10)
-
     title = models.CharField(max_length=150)
-    description = models.TextField()
 
-    statement_url = models.URLField(default='')
+    description = models.TextField()
+    statement_url = models.URLField(default='', blank=True)
 
     THEORETICAL = 'theoretical'
     AUTO_GRADING = 'autograding'
@@ -32,11 +31,9 @@ class SubmittableExercise(models.Model):
                             ),
                             default=THEORETICAL
                             )
-
     deadline = models.DateTimeField()
 
     submissions = models.ManyToManyField(Submission, related_name='submissions', blank=True)
-
     # Applicable to theory exercises (folder to save pdfs)
     # save_dir = models.FilePathField(upload_to=settings.UPLOAD_DIR, blank=True, max_length=500)
 

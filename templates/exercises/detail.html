@@ -13,7 +13,7 @@
         <h5> <u>Προθεσμία:</u> {{ exercise.deadline }} </h5>
         <br/>
         
-        <!--<samp class"pre wrapped">{{ exercise.description }} </samp>-->
+        <samp class"pre wrapped">{{ exercise.description }} </samp>
         {% if exercise.statement_url%}
             <div class="row">
                 <iframe class="container" src="http://docs.google.com/gview?url={{ exercise.statement_url }}&embedded=true"
@@ -29,6 +29,7 @@
                 {% endif %}
 
                 {% if exercise.type == exercise.AUTO_GRADING %}
+                    <br/>
                     <form action="" method="post">
                         {% csrf_token %}
                         {% bootstrap_form form %}
