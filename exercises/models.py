@@ -19,7 +19,7 @@ class SubmittableExercise(models.Model):
     tag = models.CharField(max_length=10)
     title = models.CharField(max_length=150)
 
-    description = models.TextField()
+    description = models.TextField(blank=True)
     statement_url = models.URLField(default='', blank=True)
 
     THEORETICAL = 'theoretical'
