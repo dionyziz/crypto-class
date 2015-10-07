@@ -11,12 +11,17 @@ class Submission(models.Model):
     answer = models.CharField(max_length=1025)
     is_solution = models.BooleanField()
 
+    def __unicode__(self):
+        return u'%s: %s' % (self.user.username, self.time_submitted.strftime('%d/%m/%y %H:%M'))
+
 class SubmittableExercise(models.Model):
     # e.g. "1.1", "3.5" etc.
     tag = models.CharField(max_length=10)
 
     title = models.CharField(max_length=150)
     description = models.TextField()
+
+    statement_url = models.URLField(default='')
 
     THEORETICAL = 'theoretical'
     AUTO_GRADING = 'autograding'
