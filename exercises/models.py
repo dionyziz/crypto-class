@@ -1,9 +1,8 @@
 from django.db import models
+from django.db.models.query import EmptyQuerySet
 from django.contrib import admin
 from django.contrib.auth.models import User
-
-from django.db.models.query import EmptyQuerySet
-from django.contrib.auth.models import User
+from django.utils import timezone
 
 class Submission(models.Model):
     user = models.ForeignKey(User)
@@ -40,11 +39,13 @@ class SubmittableExercise(models.Model):
         return unicode("%s: %s" % (self.tag, self.title))
 
     def is_solved_by_user(self, user):
-        user_solution = self.solutions.objects.filter(username=user.username)
-        return not isinstance(user_solution, EmptyQuerySet)
+        pass
 
-    def user_submitions(self, user):
-        return self.submittions.objects.filter(username=user.username)
+    def can_be_submitted(self):
+        return self.deadline >= timezone.now()
+
+    def get_user_submissions(self, user):
+        return self.submissions.filter(user=user).order_by('-time_submitted')
 
 class BonusLink(models.Model):
     """A bonus link that when accessed gives extra points to the student.
