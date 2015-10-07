@@ -4,12 +4,45 @@
 
 {% block maincontent %}
 
-<div class="container">
+<div class="container" class="col-md-8 col-md-offset-2">
     {% if user.is_authenticated %}
-    <p>Γειά σου, {{ user.username }}.</p>
+        <p>Γειά σου, {{ user.username }}. <a href="{% url 'logout' %}">Αποσύνδεση</a></p>
     {% endif %}
 
-    Δεν έχουν ανακοινωθεί ασκήσεις ακόμη.
+    {% if active_exercises %}
+        <table class="table table-hover">
+            <tr>
+                <th>#</th>
+                <th>Τίτλος άσκησης </th>
+                <th>Παράδοση μέχρι </th>
+            </tr>
+            {% for exercise in active_exercises %}
+            <tr>
+                <td>{{ exercise.tag }} </td>
+                <td><a href="{{ exercise.tag }}/">{{ exercise.title }}</a></td>
+                <td>{{ exercise.deadline }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p> Δεν έχουν ανακοινωθεί ασκήσεις ακόμη. </p>
+    {% endif %}
+    
+    {% if past_exercises %}
+        <h4>Προηγούμενες ασκήσεις</h4>
+        <table class="table table-hover">
+            <tr>
+                <th>#</th>
+                <th>Τίτλος άσκησης </th>
+            </tr>
+            {% for exercise in past_exercises %}
+            <tr>
+                <td>{{ exercise.tag }} </td>
+                <td><a href="{{ exercise.tag }}/">{{ exercise.title }}</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
 </div>
 
 {% endblock %}
