@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'accounts',
     'exercises',
+    'exercises.exercise1',
     'bootstrap3',
     'waffle',
 )

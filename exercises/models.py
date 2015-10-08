@@ -3,6 +3,8 @@ from django.db.models.query import EmptyQuerySet
 from django.contrib import admin
 from django.contrib.auth.models import User
 from django.utils import timezone
+from jsonfield import JSONField
+from .registry import get_generator
 
 class Submission(models.Model):
     user = models.ForeignKey(User)
@@ -40,14 +42,55 @@ class SubmittableExercise(models.Model):
     def __unicode__(self):
         return unicode("%s: %s" % (self.tag, self.title))
 
-    def is_solved_by_user(self, user):
-        pass
-
-    def can_be_submitted(self):
-        return self.deadline >= timezone.now()
-
     def get_user_submissions(self, user):
         return self.submissions.filter(user=user).order_by('-time_submitted')
+
+    def get_generated(self, user):
+        if user.is_authenticated():
+            try:
+                generated = GeneratedExercise.objects.get(user=user, exercise=self)
+                return generated
+            except GeneratedExercise.DoesNotExist:
+                pass
+        try:
+            generator_class = get_generator(self.tag)
+        except KeyError:
+            return None
+        generator = generator_class()
+        metadata = generator.metadata
+        generated = GeneratedExercise()
+        generated.user = user
+        generated.exercise = self
+        generated.metadata = generator.metadata
+        generated.message = generator.message
+        if user.is_authenticated():
+            generated.save()
+        return generated
+        
+    def get_generated_metadata(self, user):
+        generated = self.get_generated(user)
+        if not generated:
+            return None
+        return generated.metadata
+    
+    def get_generated_message(self, user):
+        generated = self.get_generated(user)
+        if not generated:
+            return None
+        return generated.message
+
+class GeneratedExercise(models.Model):
+    """A SubmittableExercise with additional metadata and message generated for a specific user"""
+    exercise = models.ForeignKey(SubmittableExercise)
+    user = models.ForeignKey(User)
+    metadata = JSONField()
+    message = models.TextField()
+
+    def __unicode__(self):
+        return u"%s generated for %s" % (self.exercise.tag, self.user.username,)
+
+    class Meta:
+        unique_together = (("exercise", "user",),)
 
 class BonusLink(models.Model):
     """A bonus link that when accessed gives extra points to the student.
