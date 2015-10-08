@@ -2,9 +2,10 @@
 
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
+import waffle
 
 from .models import BonusLink, BonusView, SubmittableExercise, Submission
 from .forms import DocumentForm, TextAnswerForm
@@ -14,7 +15,10 @@ def homepage(request):
     return render(request, 'index.html', context)
 
 def index(request):
-    exercise_list = SubmittableExercise.objects.order_by('tag')
+    if waffle.flag_is_active(request, 'view_exercises'):
+        exercise_list = SubmittableExercise.objects.order_by('tag')
+    else:
+        exercise_list = []
 
     active_exercises = [ exercise for exercise in exercise_list if exercise.can_be_submitted() ]
     past_exercises = [ exercise for exercise in exercise_list if exercise not in active_exercises ]
@@ -27,6 +31,9 @@ def index(request):
     return render(request, 'exercises/index.html', context)
 
 def detail(request, exercise_tag):
+    if not waffle.flag_is_active(request, 'view_exercises'):
+        return HttpResponseForbidden()
+
     user = request.user
     exercise = get_object_or_404(SubmittableExercise, tag=exercise_tag)
 
