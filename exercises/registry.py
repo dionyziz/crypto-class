@@ -8,11 +8,8 @@ from importlib import import_module
 def autodiscover():
     for app in settings.INSTALLED_APPS:
         try:
-            print 'trying', app
             import_module('%s.graders' % (app,))
-            print 'imported graders from', app
             import_module('%s.generators' % (app,))
-            print 'imported generators from', app
         except ImportError, e:
             print 'error', e
             continue
