@@ -62,11 +62,11 @@ class SubmittableExercise(models.Model):
         generator = generator_class()
         metadata = generator.metadata
         generated = GeneratedExercise()
-        generated.user = user
         generated.exercise = self
         generated.metadata = generator.metadata
         generated.message = generator.message
         if user.is_authenticated():
+            generated.user = user
             generated.save()
         return generated
         
