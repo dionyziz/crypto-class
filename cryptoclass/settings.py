@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'accounts',
     'exercises',
     'bootstrap3',
+    'waffle',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -50,6 +51,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'waffle.middleware.WaffleMiddleware',
 )
 
 ROOT_URLCONF = 'cryptoclass.urls'
@@ -91,7 +93,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "el"
 
 TIME_ZONE = 'UTC'
 
@@ -100,6 +102,10 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
 
 
 # Static files (CSS, JavaScript, Images)
@@ -176,7 +182,8 @@ REGISTRATION_EMAIL_HTML = True
 REGISTRATION_AUTO_LOGIN = True
 REGISTRATION_OPEN = True
 AUTH_PROFILE_MODEL = 'accounts.UserProfile'
-LOCALE_PATHS = (
-    os.path.join(BASE_DIR, 'locale'),
-)
-LANGUAGE_CODE = "el"
+
+# Waffle settings
+
+WAFFLE_FLAG_DEFAULT = True
+WAFFLE_OVERRIDE = DEBUG # Allow overriding flags for query string, if debug enabled
