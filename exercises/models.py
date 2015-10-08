@@ -42,6 +42,9 @@ class SubmittableExercise(models.Model):
     def __unicode__(self):
         return unicode("%s: %s" % (self.tag, self.title))
 
+    def can_be_submitted(self):
+        return True
+
     def get_user_submissions(self, user):
         return self.submissions.filter(user=user).order_by('-time_submitted')
 
