@@ -4,79 +4,55 @@
 
 {% block maincontent %}
 <div class="container" class="col-md-8 col-md-offset-2">
-    {% if user.is_authenticated %}
-        <p>Γειά σου, {{ user.username }}. <a href="{% url 'logout' %}">Αποσύνδεση</a></p>
+    <h1> {{ exercise.title }} </h1>
+    <h5> <u>Προθεσμία:</u> {{ exercise.deadline }} </h5>
+    <br/>
+    
+    {% if exercise.description %}
+        <samp class"pre wrapped">{{ exercise.description }}</samp>
     {% endif %}
-        
-    {% if exercise %}
-        <h1> {{ exercise.title }} </h1>
-        <h5> <u>Προθεσμία:</u> {{ exercise.deadline }} </h5>
-        <br/>
-        
-        {% if exercise.description %}
-            <samp class"pre wrapped">{{ exercise.description }} </samp>
-        {% endif %}
 
-	{% if generator %}
-            <samp class"pre wrapped">{{ generator.message }} </samp>
+	{% if generated_message %}
+        <samp class"pre wrapped">{{ generated_message }}</samp>
 	{% endif %}
 
+    {% if exercise.statement_url%}
+        <div class="row">
+            <iframe class="container" src="http://docs.google.com/gview?url={{ exercise.statement_url }}&embedded=true"
+                frameborder="0" height="550px"></iframe>  
+        </div>
+    {% endif %}
+    
+    {% if not exercise.statement_url and not exercise.description %}
+        <h5>Δεν υπάρχει διαθέσιμη εκφώνηση. Παρακαλούμε προσπαθήστε αργότερα.</h5>
+        <div class="clearfix"></div>
+    {% endif %}
 
-        {% if exercise.statement_url%}
-            <div class="row">
-                <iframe class="container" src="http://docs.google.com/gview?url={{ exercise.statement_url }}&embedded=true"
-                    frameborder="0" height="550px"></iframe>  
-            </div>
-        {% endif %}
-        
-        {% if not exercise.statement_url and not exercise.description %}
-            <h5>Δεν υπάρχει διαθέσιμη εκφώνηση. Παρακαλούμε προσπαθήστε αργότερα.</h5>
-            <div class="clearfix"></div>
-        {% endif %}
-
-        {% if user.is_authenticated %}
-            {% if exercise.can_be_submitted %}
-                <br/>
-                {% if exercise.type == exercise.THEORETICAL %}
-
-                {% endif %}
-
-                {% if exercise.type == exercise.AUTO_GRADING %}
-                    <br/>
-                    <form action="" method="post">
-                        {% csrf_token %}
-                        {% bootstrap_form form %}
-                        {% buttons %}
-                            <button type="submit" class="btn btn-primary">
-                                {% bootstrap_icon "star" %} Υποβολή
-                            </button>
-                        {% endbuttons %}
-                                
-                    </form>
-                {% endif %}
-            {% endif %}    
-
-            {% if submissions %}
-                <h3> Προηγούμενες Υποβολές </h3>
-                <table class="table">
-                    {% for submission in submissions %}
-                    <tr class="{% if submission.is_solution %}success{% else %}danger{% endif %}">
-                        <td>{{ submission.user.username }}</td>
-                        <td>{{ submission.time_submitted }}</td>
-                        <td>
-                            {% if submission.is_solution %}
-                                Επιτυχής!
-                            {% else %}
-                                Αποτυχημένη
-                            {% endif %}
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </table>
+    {% if user.is_authenticated %}
+        <br/>
+        {% if exercise.type == exercise.AUTO_GRADING %}
+            {% if solution %}
+                <div class="solution">Λύση: {{ solution.answer }}</div>
             {% else %}
-                <h5> Δεν υπάρχει υποβολή για την συγκεκριμένη άσκηση. </h5>
+                <br/>
+                <form action="{% url 'submit-solution' exercise_tag=exercise.tag %}" method="post">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    {% buttons %}
+                        <button type="submit" class="btn btn-primary">
+                            {% bootstrap_icon "star" %} Υποβολή
+                        </button>
+                    {% endbuttons %}
+                </form>
+                {% if submitted_wrong_answer %}
+                <div class="text-warning">Λάθος. Προσπάθησε ξανά.</div>
+                {% endif %}
             {% endif %}
         {% endif %}
+        {% if exercise.type == exercise.THEORETICAL %}
+        {% endif %}
+    {% else %}
+    <p>Πρέπει να έχεις λογαριασμό για να υποβάλεις λύσεις.</p>
     {% endif %}
 </div>
 

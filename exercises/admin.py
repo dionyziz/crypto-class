@@ -1,9 +1,11 @@
 from django.contrib import admin
 from .models import BonusLink, BonusView
 
-from .models import SubmittableExercise
+from .models import SubmittableExercise, Submission, GeneratedExercise
 
+admin.site.register(Submission)
 admin.site.register(SubmittableExercise)
+admin.site.register(GeneratedExercise)
 
 @admin.register(BonusLink)
 class BonusLinkAdmin(admin.ModelAdmin):
