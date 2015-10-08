@@ -44,7 +44,9 @@ class Rot13Exercise(object):
     '''
     rot13 encoding and decoding functions for the first hands-on exercise of crypto-class.
     '''
-    def __init__(self, args_dict):
+    def __init__(self, args_dict = None):
+        if args_dict is None:
+            args_dict = {}
         try:
             if 'metadata' in args_dict:
                 self.metadata = args_dict['metadata']
@@ -80,7 +82,9 @@ class SubstitutionExercise(object):
     '''
     Substitution encoding and decoding functions for the first hands-on exercise of crypto-class.
     '''
-    def __init__(self, args_dict = {}):
+    def __init__(self, args_dict = None):
+        if args_dict is None:
+            args_dict = {}
         self.exercise = ''
         if 'metadata' in args_dict:
             self.metadata = args_dict['metadata']
