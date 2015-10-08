@@ -3,17 +3,16 @@
 {% load bootstrap3 %}
 
 {% block maincontent %}
-<div class="container" class="col-md-8 col-md-offset-2">
+<div class="container" class="col-md-8 col-md-offset-2" id="exercise_detail">
     <h1> {{ exercise.title }} </h1>
     <h5> <u>Προθεσμία:</u> {{ exercise.deadline }} </h5>
-    <br/>
     
     {% if exercise.description %}
-        <samp class"pre wrapped">{{ exercise.description }}</samp>
+        <p>{{ exercise.description }}</p>
     {% endif %}
 
 	{% if generated_message %}
-        <samp class"pre wrapped">{{ generated_message }}</samp>
+        <pre>{{ generated_message }}</pre>
 	{% endif %}
 
     {% if exercise.statement_url%}
@@ -29,12 +28,10 @@
     {% endif %}
 
     {% if user.is_authenticated %}
-        <br/>
         {% if exercise.type == exercise.AUTO_GRADING %}
             {% if solution %}
                 <div class="solution">Λύση: {{ solution.answer }}</div>
             {% else %}
-                <br/>
                 <form action="{% url 'submit-solution' exercise_tag=exercise.tag %}" method="post">
                     {% csrf_token %}
                     {% bootstrap_form form %}
