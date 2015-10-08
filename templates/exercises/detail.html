@@ -17,6 +17,11 @@
             <samp class"pre wrapped">{{ exercise.description }} </samp>
         {% endif %}
 
+	{% if generator %}
+            <samp class"pre wrapped">{{ generator.message }} </samp>
+	{% endif %}
+
+
         {% if exercise.statement_url%}
             <div class="row">
                 <iframe class="container" src="http://docs.google.com/gview?url={{ exercise.statement_url }}&embedded=true"

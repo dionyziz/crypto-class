@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 import waffle
+from .registry import get_grader, get_generator
 
 from .models import BonusLink, BonusView, SubmittableExercise, Submission
 from .forms import DocumentForm, TextAnswerForm
@@ -37,6 +38,13 @@ def detail(request, exercise_tag):
     user = request.user
     exercise = get_object_or_404(SubmittableExercise, tag=exercise_tag)
 
+    try:
+        generator_class = get_generator(exercise.tag)
+        generator = generator_class()
+    except KeyError:
+        generator = None
+        pass
+
     context = {
         'user': user,
         'exercise': exercise,
@@ -63,6 +71,7 @@ def detail(request, exercise_tag):
         context.update({
             'submissions': submissions,
             'form': form,
+            'generator': generator,
         })
 
     return render(request, 'exercises/detail.html', context)
