@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load bootstrap3 %}
+{% load waffle_tags %}
 
 {% block maincontent %}
 <div class="container" class="col-md-8 col-md-offset-2" id="exercise_detail">
@@ -46,7 +47,13 @@
                 {% endif %}
             {% endif %}
         {% endif %}
+
         {% if exercise.type == exercise.THEORETICAL %}
+            {% flag 'submit_theoretical_exercises' %}
+            <!-- add upload form here -->
+            {% else %}
+            <p>Η υποβολή λύσεων δεν είναι διαθέσιμη για αυτήν την άσκηση.</p>
+            {% endflag %}
         {% endif %}
     {% else %}
     <p>Πρέπει να έχεις λογαριασμό για να υποβάλεις λύσεις.</p>
