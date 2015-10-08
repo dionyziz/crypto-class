@@ -123,6 +123,8 @@ def submit_autograding_exercise(request, exercise):
         return render(request, 'exercises/detail.html', context)
 
 def handle_post_theoretical_exercise(request, exercise):
+    if not waffle.flag_is_active(request, 'submit_theoretical_exercises'):
+        return HttpResponseForbidden()
     pass
 
 @login_required
