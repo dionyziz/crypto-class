@@ -32,3 +32,6 @@ header {
 	margin-top: 5%;
 	padding: 1%;
 }
+#exercise_detail #id_answer {
+	width: 200px;
+}
