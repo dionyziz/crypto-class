@@ -1,9 +1,8 @@
 from django.db import models
+from django.db.models.query import EmptyQuerySet
 from django.contrib import admin
 from django.contrib.auth.models import User
-
-from django.db.models.query import EmptyQuerySet
-from django.contrib.auth.models import User
+from django.utils import timezone
 
 class Submission(models.Model):
     user = models.ForeignKey(User)
@@ -12,12 +11,16 @@ class Submission(models.Model):
     answer = models.CharField(max_length=1025)
     is_solution = models.BooleanField()
 
+    def __unicode__(self):
+        return u'%s: %s' % (self.user.username, self.time_submitted.strftime('%d/%m/%y %H:%M'))
+
 class SubmittableExercise(models.Model):
     # e.g. "1.1", "3.5" etc.
     tag = models.CharField(max_length=10)
-
     title = models.CharField(max_length=150)
-    description = models.TextField()
+
+    description = models.TextField(blank=True)
+    statement_url = models.URLField(default='', blank=True)
 
     THEORETICAL = 'theoretical'
     AUTO_GRADING = 'autograding'
@@ -28,11 +31,9 @@ class SubmittableExercise(models.Model):
                             ),
                             default=THEORETICAL
                             )
-
     deadline = models.DateTimeField()
 
     submissions = models.ManyToManyField(Submission, related_name='submissions', blank=True)
-
     # Applicable to theory exercises (folder to save pdfs)
     # save_dir = models.FilePathField(upload_to=settings.UPLOAD_DIR, blank=True, max_length=500)
 
@@ -40,11 +41,13 @@ class SubmittableExercise(models.Model):
         return unicode("%s: %s" % (self.tag, self.title))
 
     def is_solved_by_user(self, user):
-        user_solution = self.solutions.objects.filter(username=user.username)
-        return not isinstance(user_solution, EmptyQuerySet)
+        pass
 
-    def user_submitions(self, user):
-        return self.submittions.objects.filter(username=user.username)
+    def can_be_submitted(self):
+        return self.deadline >= timezone.now()
+
+    def get_user_submissions(self, user):
+        return self.submissions.filter(user=user).order_by('-time_submitted')
 
 class BonusLink(models.Model):
     """A bonus link that when accessed gives extra points to the student.

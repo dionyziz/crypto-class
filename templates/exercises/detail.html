@@ -10,19 +10,34 @@
         
     {% if exercise %}
         <h1> {{ exercise.title }} </h1>
-
         <h5> <u>Προθεσμία:</u> {{ exercise.deadline }} </h5>
+        <br/>
         
-        <samp class"pre wrapped">{{ exercise.description }} </samp>
+        {% if exercise.description %}
+            <samp class"pre wrapped">{{ exercise.description }} </samp>
+        {% endif %}
+
+        {% if exercise.statement_url%}
+            <div class="row">
+                <iframe class="container" src="http://docs.google.com/gview?url={{ exercise.statement_url }}&embedded=true"
+                    frameborder="0" height="550px"></iframe>  
+            </div>
+        {% endif %}
         
-        <br></br>
+        {% if not exercise.statement_url and not exercise.description %}
+            <h5>Δεν υπάρχει διαθέσιμη εκφώνηση. Παρακαλούμε προσπαθήστε αργότερα.</h5>
+            <div class="clearfix"></div>
+        {% endif %}
+
         {% if user.is_authenticated %}
-            {% if can_be_submitted %}
+            {% if exercise.can_be_submitted %}
+                <br/>
                 {% if exercise.type == exercise.THEORETICAL %}
 
                 {% endif %}
 
                 {% if exercise.type == exercise.AUTO_GRADING %}
+                    <br/>
                     <form action="" method="post">
                         {% csrf_token %}
                         {% bootstrap_form form %}
@@ -54,7 +69,7 @@
                     {% endfor %}
                 </table>
             {% else %}
-                <h4> Δεν υπάρχει υποβολή για την συγκεκριμένη άσκηση. </h4>
+                <h5> Δεν υπάρχει υποβολή για την συγκεκριμένη άσκηση. </h5>
             {% endif %}
         {% endif %}
     {% endif %}

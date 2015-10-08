@@ -8,8 +8,11 @@
     {% if user.is_authenticated %}
         <p>Γειά σου, {{ user.username }}. <a href="{% url 'logout' %}">Αποσύνδεση</a></p>
     {% endif %}
+    
+    <div class="clearfix"></div>
 
     {% if active_exercises %}
+        <h4>Ενεργές ασκήσεις</h4>
         <table class="table table-hover">
             <tr>
                 <th>#</th>
@@ -28,6 +31,8 @@
         <p> Δεν έχουν ανακοινωθεί ασκήσεις ακόμη. </p>
     {% endif %}
     
+    <div class="clearfix"></div>
+
     {% if past_exercises %}
         <h4>Προηγούμενες ασκήσεις</h4>
         <table class="table table-hover">

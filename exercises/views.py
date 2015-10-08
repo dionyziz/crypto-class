@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect
+
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 
 from .models import BonusLink, BonusView, SubmittableExercise, Submission
@@ -15,7 +16,7 @@ def homepage(request):
 def index(request):
     exercise_list = SubmittableExercise.objects.order_by('tag')
 
-    active_exercises = [ exercise for exercise in exercise_list if exercise.deadline >= timezone.now() ]
+    active_exercises = [ exercise for exercise in exercise_list if exercise.can_be_submitted() ]
     past_exercises = [ exercise for exercise in exercise_list if exercise not in active_exercises ]
 
     context = {
@@ -26,51 +27,63 @@ def index(request):
     return render(request, 'exercises/index.html', context)
 
 def detail(request, exercise_tag):
+    user = request.user
     exercise = get_object_or_404(SubmittableExercise, tag=exercise_tag)
 
-    user = request.user
-    submissions = None
-
-    if not user.is_anonymous() and user.is_authenticated():
-        submissions = exercise.submissions.filter(user=user).order_by('-time_submitted')
-
-    if exercise.type == exercise.AUTO_GRADING:
-        if request.method == 'POST':
-            form = TextAnswerForm(request.POST)
-
-            if form.is_valid():
-                answer = form.cleaned_data['answer']
-
-                # Call grader here
-                is_solution = True
-
-                # Save submission
-                submission = Submission.objects.create(
-                        user=user,
-                        time_submitted=timezone.now(),
-                        answer=answer,
-                        is_solution=is_solution
-                        )
-                exercise.submissions.add(submission)
-
-                return HttpResponseRedirect(reverse('exercise_detail', kwargs={'exercise_tag': exercise_tag} ))
-        else:
-            form = TextAnswerForm()
-
-    elif exercise.type == exercise.THEORETICAL:
-        pass
-
-    #TODO: Check if user sees the exercise for the first time
-    #       If so, generate the appropriate data
-
     context = {
-            'user': user,
-            'exercise': exercise,
+        'user': user,
+        'exercise': exercise,
+    }
+
+    if user.is_authenticated():
+        submissions = exercise.get_user_submissions(user)
+
+        if exercise.type == exercise.AUTO_GRADING:
+            if request.method == 'POST':
+                return handle_post_autograding_exercise(request, exercise, context)
+            else:
+                form = TextAnswerForm()
+
+        elif exercise.type == exercise.THEORETICAL:
+            if request.method == 'POST':
+                return handle_post_theoretical_exercise(request, exercise, context)
+            else:
+                form = DocumentForm()
+
+        #TODO: Check if user sees the exercise for the first time
+        #       If so, generate the appropriate data
+
+        context.update({
             'submissions': submissions,
             'form': form,
-            'can_be_submitted': exercise.deadline >= timezone.now(),
-        }
+        })
+
     return render(request, 'exercises/detail.html', context)
+
+def handle_post_autograding_exercise(request, exercise, context):
+    form = TextAnswerForm(request.POST)
+
+    if form.is_valid():
+        answer = form.cleaned_data['answer']
+
+        # Call grader here
+        is_solution = True
+
+        # Save submission
+        submission = Submission.objects.create(
+                user=request.user,
+                time_submitted=timezone.now(),
+                answer=answer,
+                is_solution=is_solution
+                )
+        exercise.submissions.add(submission)
+
+        return HttpResponseRedirect(reverse('exercise_detail', kwargs={'exercise_tag': exercise.tag} ))
+    else:
+        return render(request, 'exercises/detail.html', context)
+
+def handle_post_theoretical_exercise(request, user):
+    pass
 
 @login_required
 def bonuslink(request, secret):
