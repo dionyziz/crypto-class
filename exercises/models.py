@@ -1,3 +1,5 @@
+import os.path
+
 from django.db import models
 from django.db.models.query import EmptyQuerySet
 from django.contrib import admin
@@ -97,7 +99,7 @@ class Submission(models.Model):
                 )
 
 def exercise_save_path(instance, filename):
-    (_, file_ext) = splitext(filename)
+    (_, file_ext) = os.path.splitext(filename)
 
     submissions = FileSubmission.objects.filter(
                     user=instance.user,
@@ -111,8 +113,9 @@ def exercise_save_path(instance, filename):
             file_ext
             )
 
-    return 'exercises/submissions/{0}/{1}'.format(
+    return 'submissions/exercise/{0}/{1}/{2}'.format(
                 instance.exercise.tag,
+                instance.user.username,
                 filename
                 )
 

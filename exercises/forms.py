@@ -2,10 +2,11 @@
 
 from django import forms
 
-class DocumentForm(forms.Form):
-    pdf_file = forms.FileField(
-        label=u'PDF αρχείο: ',
-        help_text=u'Μέγιστο μεγεθος: 10ΜΒ'
+
+class UploadFileForm(forms.Form):
+    file = forms.FileField(
+        label=u'Επιλογή αρχείου PDF/DOC/ODF:',
+        help_text=u'Μέγιστο μεγεθος αρχείου: 10ΜΒ'
     )
 
 class TextAnswerForm(forms.Form):

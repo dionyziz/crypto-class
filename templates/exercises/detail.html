@@ -50,7 +50,33 @@
 
         {% if exercise.type == exercise.THEORETICAL %}
             {% flag 'submit_theoretical_exercises' %}
-            <!-- add upload form here -->
+            <form action="{% url 'submit-solution' exercise_tag=exercise.tag %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                {% buttons %}
+                    <button type="submit" class="btn btn-primary">
+                        {% bootstrap_icon "star" %} Υποβολή
+                    </button>
+                {% endbuttons %}
+            </form>
+            
+            {% if file_submission %}
+            <table class="table">
+                <tr class="{% if file_submission.score == -1 %}info{% elif file_submission.score == 0 %}danger{% else %}success{% endif %}">
+                    <td>{{ file_submission.user.username }}</td>
+                    <td>{{ file_submission.time_submitted }}</td>
+                    <td><a href="{{ file_submission.file.url }}">Προβολή υποβολής</a></td>
+                    <td>
+                        {% if file_submission.score == -1 %}
+                            -
+                        {% else %}
+                            {{ file_submission.score }}
+                        {% endif %}
+                    </td>
+                </tr>
+            </table>
+            {% endif %}
+
             {% else %}
             <p>Η υποβολή λύσεων δεν είναι διαθέσιμη για αυτήν την άσκηση.</p>
             {% endflag %}

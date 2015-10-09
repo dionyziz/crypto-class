@@ -9,7 +9,7 @@ import waffle
 from .registry import get_grader, get_generator
 
 from .models import BonusLink, BonusView, SubmittableExercise, Submission, FileSubmission, GeneratedExercise
-from .forms import DocumentForm, TextAnswerForm
+from .forms import UploadFileForm, TextAnswerForm
 
 def homepage(request):
     context = {'user': request.user}
@@ -61,15 +61,16 @@ def detail(request, exercise_tag):
 
             form = TextAnswerForm()
         elif exercise.type == exercise.THEORETICAL:
-            form = DocumentForm()
+            file_submissions = FileSubmission.objects.filter(user=user, exercise=exercise).order_by('-time_submitted')
+
+            if file_submissions:
+                context.update({ 'file_submission': file_submissions[0] })
+
+            form = UploadFileForm()
         else:
             raise Exception('Unknown exercise type')
 
-        #TODO: Check if user sees the exercise for the first time
-        #       If so, generate the appropriate data
-
         context.update({
-            'submissions': submissions,
             'form': form,
         })
 
@@ -124,10 +125,36 @@ def submit_autograding_exercise(request, exercise):
         }
         return render(request, 'exercises/detail.html', context)
 
-def handle_post_theoretical_exercise(request, exercise):
+def submit_theoretical_exercise(request, exercise):
     if not waffle.flag_is_active(request, 'submit_theoretical_exercises'):
         return HttpResponseForbidden()
     pass
+
+    form = UploadFileForm(request.POST, request.FILES)
+    user = request.user
+
+    if form.is_valid():
+        file = request.FILES['file']
+
+        file_submission = FileSubmission(
+                user=user,
+                exercise=exercise,
+                time_submitted=timezone.now(),
+                file=file
+                )
+
+        #TODO: Add restrictions for file size/type
+
+        file_submission.save()
+
+        redirect_url = reverse('exercise_detail', kwargs={'exercise_tag': exercise.tag} )
+        return HttpResponseRedirect(redirect_url)
+    else:
+        context = {
+            'user': user,
+            'exercise': exercise,
+        }
+        return render(request, 'exercises/detail.html', context)
 
 @login_required
 def bonuslink(request, secret):
