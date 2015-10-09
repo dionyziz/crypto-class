@@ -65,7 +65,7 @@
                 <tr class="{% if file_submission.score == -1 %}info{% elif file_submission.score == 0 %}danger{% else %}success{% endif %}">
                     <td>{{ file_submission.user.username }}</td>
                     <td>{{ file_submission.time_submitted }}</td>
-                    <td><a href="{{ file_submission.file.url }}">Προβολή υποβολής</a></td>
+                    <td><a href="{% url 'exercise-last_submission' exercise_tag=exercise.tag %}">Προβολή υποβολής</a></td>
                     <td>
                         {% if file_submission.score == -1 %}
                             -

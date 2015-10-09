@@ -128,6 +128,7 @@ class FileSubmission(models.Model):
 
     score = models.SmallIntegerField(default=NOT_GRADED)
     file = models.FileField(upload_to=exercise_save_path)
+    uploaded_filename = models.CharField(max_length=100)
 
     def __unicode__(self):
         return u'[%s] %s %s (%s)' % (

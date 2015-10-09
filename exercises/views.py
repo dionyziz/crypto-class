@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
+import os.path
 
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect, HttpResponseForbidden
+from django.http import HttpResponseRedirect, HttpResponseForbidden, HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 import waffle
@@ -140,7 +142,8 @@ def submit_theoretical_exercise(request, exercise):
                 user=user,
                 exercise=exercise,
                 time_submitted=timezone.now(),
-                file=file
+                file=file,
+                uploaded_filename=file.name
                 )
 
         #TODO: Add restrictions for file size/type
@@ -155,6 +158,43 @@ def submit_theoretical_exercise(request, exercise):
             'exercise': exercise,
         }
         return render(request, 'exercises/detail.html', context)
+
+@login_required
+def last_submission(request, exercise_tag):
+    supported_filetypes = {
+        '.odf': 'application/vnd.oasis.opendocument.formula',
+        '.pdf': 'application/pdf',
+        '.doc': 'application/msword',
+        '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+    }
+
+    exercise = get_object_or_404(SubmittableExercise, tag=exercise_tag)
+
+    if exercise.type == exercise.THEORETICAL:
+        file_submissions = FileSubmission.objects.filter(user=request.user, exercise=exercise).order_by('-time_submitted')
+        if not file_submissions:
+            raise Http404("No submissions found")
+
+        last_submission = file_submissions[0]
+
+        _, file_ext = os.path.splitext(last_submission.file.url)
+        if file_ext not in supported_filetypes:
+            raise Http404("Invalid filetype")
+
+        file_mimetype = supported_filetypes[file_ext]
+
+        path = os.path.join(settings.BASE_DIR, last_submission.file.url[1:])
+        content = None
+        with open(path, 'rb') as f:
+            content = f.read()
+
+        response = HttpResponse(content, content_type=file_mimetype)
+        response['Content-Disposition'] = 'attachment; filename=' + last_submission.uploaded_filename
+
+        return response
+
+    else:
+        raise Http404()
 
 @login_required
 def bonuslink(request, secret):
