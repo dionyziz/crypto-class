@@ -8,7 +8,7 @@ from django.utils import timezone
 import waffle
 from .registry import get_grader, get_generator
 
-from .models import BonusLink, BonusView, SubmittableExercise, Submission, GeneratedExercise
+from .models import BonusLink, BonusView, SubmittableExercise, Submission, FileSubmission, GeneratedExercise
 from .forms import DocumentForm, TextAnswerForm
 
 def homepage(request):
@@ -52,12 +52,13 @@ def detail(request, exercise_tag):
     }
 
     if user.is_authenticated():
-        submissions = exercise.get_user_submissions(user)
-
         if exercise.type == exercise.AUTO_GRADING:
+            submissions = Submission.objects.filter(user=user, exercise=exercise)
+
             solutions = [s for s in submissions if s.is_solution]
             if len(solutions) != 0:
                 context.update({ 'solution': solutions[0] })
+
             form = TextAnswerForm()
         elif exercise.type == exercise.THEORETICAL:
             form = DocumentForm()
@@ -79,7 +80,7 @@ def submit_solution(request, exercise_tag):
     if not waffle.flag_is_active(request, 'view_exercises'):
         return HttpResponseForbidden()
 
-    exercise = get_object_or_404(SubmittableExercise, tag=exercise_tag) 
+    exercise = get_object_or_404(SubmittableExercise, tag=exercise_tag)
     if exercise.type == exercise.AUTO_GRADING:
         return submit_autograding_exercise(request, exercise)
     elif exercise.type == exercise.THEORETICAL:
@@ -100,13 +101,14 @@ def submit_autograding_exercise(request, exercise):
         is_solution = grader_function(metadata, answer)
 
         # Save submission
-        submission = Submission.objects.create(
+        submission = Submission(
             user=request.user,
+            exercise=exercise,
             time_submitted=timezone.now(),
             answer=answer,
             is_solution=is_solution
         )
-        exercise.submissions.add(submission)
+        submission.save()
 
         redirect_url = reverse('exercise_detail', kwargs={'exercise_tag': exercise.tag})
         if not is_solution:
