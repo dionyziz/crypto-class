@@ -148,10 +148,10 @@ def submit_theoretical_exercise(request, exercise):
         file = request.FILES['file']
 
         if file.size > MAXIMUM_FILESIZE:
-            return HttpResponseBadRequest("File exceedes maximum filesize limit")
+            return HttpResponseBadRequest(u"Το αρχείο ξεπερνάει το επιτρεπτό μέγιστο μέγεθος αρχείου.")
 
         if file.content_type not in supported_filetypes:
-            return HttpResponseBadRequest("Invalid file type. pdf/doc/odf are valid")
+            return HttpResponseBadRequest(u"Λανθασμένος τύπος αρχείου. Αποδεκτοί τύποι αρχείων ειναι PDF/DOC/ODF.")
 
         file_submission = FileSubmission(
                 user=user,
@@ -179,7 +179,7 @@ def last_submission(request, exercise_tag):
     if exercise.type == exercise.THEORETICAL:
         file_submissions = FileSubmission.objects.filter(user=request.user, exercise=exercise).order_by('-time_submitted')
         if not file_submissions:
-            raise Http404("No submissions found")
+            raise Http404(u"Δεν βρέθηκαν υποβολές.")
 
         last_submission = file_submissions[0]
 
