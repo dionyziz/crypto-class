@@ -14,7 +14,7 @@ header {
 
 .exercise {
 	font-style: italic;
-	text-decoration: underline;
+	font-weight: bold;
 }
 
 .underline {
@@ -32,6 +32,12 @@ header {
 	margin-top: 5%;
 	padding: 1%;
 }
-#exercise_detail #id_answer {
-	width: 200px;
+
+.important {
+	color: orange;
+	font-style: italic;
+}
+
+a {
+	text-decoration: underline;
 }
