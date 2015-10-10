@@ -1,177 +1,56 @@
-{% extends "base.html" %}
+﻿{% extends "base.html" %}
 
 {% load bootstrap3 %}
 
 {% block maincontent %}
-        <div class='container'>
-            <header class='jumbotron'>
-                <h1>Κρυπτογραφία</h1>
-                <p>Χειμερινό εξάμηνο 2015-2016, ΕΜΠ</p>
+		<div class='container'>
+			<header class='jumbotron'>
+				<h1>Κρυπτογραφία</h1>
+				<p>Χειμερινό εξάμηνο 2015-2016, ΕΜΠ</p>
 				<img src='static/img/NTUA.png' alt='NTUA Logo' height='140' width='140'/>
-            </header>
-            <main>
+				<p><a href='http://www.ece.ntua.gr/el'>ΗΜΜΥ ΕΜΠ</a></p>
+			</header>
+			
+			<main>
+			<p>Έχεις κάποια ερώτηση; Πήγαινε στις <a href='faq.html'>συχνές ερωτήσεις</a>. Δεν βρίσκεις απάντηση στην ερώτηση σου; Θέσε την στο <a href='https://groups.google.com/forum/#!forum/crypto-class-students'>forum</a> και θα σου απαντήσουμε.</p>
+			<p class='bold important'>Είναι καλό να διαβάσεις τις <a href='faq.html'>συχνές ερωτήσεις</a> για να ενημερωθείς!</p>
 			<h2 class='page-header'>Υπεύθυνοι καθηγητές</h2>
-            <ul>
-                <li>Άρης Παγουρτζής</li>
-                <li>Παναγιώτης Τσανάκας</li>
-                <li>Στάθης Ζάχος</li>
-            </ul>
-            <h2 class='page-header'>Διδασκαλία</h2>
-            <ul>
-                <li>Παναγιώτης Γροντάς</li>
-                <li>Πέτρος Ποτίκας</li>
-                <li>Διονύσης Ζήνδρος (dionyziz@gmail.com)</li>
-            </ul>
-                
-            <h2 class='page-header'>Βοηθοί μαθήματος</h2>
-            <ul>
-				<li>Ζέτα Αβαρικιώτη (zavarikioti@gmail.com)</li>
-                <li>Σωκράτης Βίδρος (sokratis.vidros@gmail.com)</li>
-                <li>Βασίλης Γκούμας (bgoumas@gmail.com)</li>
-                <li>Λευτέρης Ιωαννίδης (elefthei@mit.edu)</li>
-                <li>Κωνσταντίνος Κανελλής (kkanelli@gmail.com)</li>
-                <li>Δημήτρης Καρακώστας (dimit.karakostas@gmail.com)</li>
-                <li>Κωστής Καραντίας (karantiaskostis@gmail.com)</li>
-                <li>Πλάτων-Νικόλαος Κιορπελίδης (platwnace@gmail.com)</li>
-                <li>Νικόλας Κορασίδης (renelvon@gmail.com)</li>
-                <li>Αλέξης Μπρέζας (abresas@gmail.com)</li>
-                <li>Χαρά Ποδηματά (charapod@gmail.com)</li>
-                <li>Γιώργος Τσουκαλάς</li>
-            </ul>
+			<ul>
+				<li>Άρης Παγουρτζής (pagour@gmail.com)</li>
+				<li>Παναγιώτης Τσανάκας (panayiotis.tsanakas@gmail.com)</li>
+				<li>Στάθης Ζάχος (zachos@cs.ntua.gr)</li>
+			</ul>
+			<h2 class='page-header'>Διδασκαλία</h2>
+			<ul>
+				<li>Παναγιώτης Γροντάς (pgrontas@gmail.com)</li>
+				<li>Πέτρος Ποτίκας (petros.potikas@gmail.com)</li>
+				<li>Διονύσης Ζήνδρος (dionyziz@gmail.com)</li>
+			</ul>
+			
+			<h2 class='page-header'>Βοηθοί μαθήματος</h2>
+			<ul>
+				<li>Ζέτα Αβαρικιώτη (zetavar@corelab.ntua.gr)</li>
+				<li>Σωκράτης Βίδρος (sokratis.vidros@gmail.com)</li>
+				<li>Βασίλης Γκούμας (bgoumas@gmail.com)</li>
+				<li>Λευτέρης Ιωαννίδης (elefthei@mit.edu)</li>
+				<li>Κωνσταντίνος Κανελλής (kkanelli@gmail.com)</li>
+				<li>Δημήτρης Καρακώστας (dimit.karakostas@gmail.com)</li>
+				<li>Κωστής Καραντίας (karantiaskostis@gmail.com)</li>
+				<li>Πλάτων-Νικόλαος Κιορπελίδης (platwnace@gmail.com)</li>
+				<li>Νικόλας Κορασίδης (renelvon@gmail.com)</li>
+				<li>Αλέξης Μπρέζας (abresas@gmail.com)</li>
+				<li>Χαρά Ποδηματά (charapod@gmail.com)</li>
+				<li>Γιώργος Τσουκαλάς (gtsouk@gmail.com)</li>
+			</ul>
 
-                <h2 class='page-header'>Τι πρέπει να ξέρω;</h2>
-				<p>Οι <span class='bold'>προαπαιτούμενες</span> γνώσεις είναι:</p>
-				<ul>
-					<li><span class='bold'>Μαθηματική ωριμότητα</span> και γνώσεις <span class='bold'>διακριτών μαθηματικών</span>. (π.χ. από το μάθημα “<span class='italic'>Διακριτά Μαθηματικά</span>”)</li>
-					<li>Γνώση μίας <span class='bold'>γλώσσας προγραμματισμού</span> της επιλογής σας. (π.χ. από το μάθημα “<span class='italic'>Εισαγωγή στον προγραμματισμό</span>”)</li>
-					<li><span class='bold'>Βασική γνώση αλγορίθμων</span> και <span class='bold'>θεωρίας πολυπλοκότητας.</span> (π.χ. από το μάθημα “<span class='italic'>Εισαγωγή στην Επιστήμη των Υπολογιστών</span>” ή από το “<span class='italic'>Αλγόριθμοι και Πολυπλοκότητα</span>”)</li>
-				</ul>
-
-                <h2 class='page-header'>Τι θα μάθω;</h2>
-                <ul>
-                    <li>Συμμετρική κρυπτογραφία</li>
-                    <li>One-time pads</li>
-                    <li>Hash functions</li>
-                    <li>Γεννήτριες τυχαίων αριθμών</li>
-                    <li>Block ciphers</li>
-                    <li>HMAC</li>
-                    <li>Θεωρία αριθμών</li>
-                    <li>Ασύμμετρη κρυπτογραφία</li>
-                    <li>Ψηφιακές υπογραφές (RSA)</li>
-                    <li>Diffie-Hellman</li>
-                    <li>Κρυπτογραφία στο web</li>
-                    <li>Επιθέσεις MITM, side-channel, timing</li>
-                    <li>Ασφαλείς επικοινωνίες</li>
-                    <li>Ελλειπτικές καμπύλες</li>
-                    <li>Zero-knowledge proofs</li>
-                    <li>Ψηφιακές ψηφοφορίες, Bitcoin, αποκεντρωμένο DNS, blockchain</li>
-                </ul>
-				<p><a href='#material'>Δές την ύλη πιο αναλυτικά</a></p>
-
-                <h2 class='page-header'>Με ενδιαφέρει! Μπορώ να το παρακολουθήσω;</h2>
-				<p><span class='underline italic'>Τα μαθήματα ξεκινάνε την Τρίτη 6/10</span></p>
-                <p>
-                    Αν είσαι φοιτητής <span class='bold'>9ου εξαμήνου</span> της <span class='bold'>ροης Μ</span> στους <span class='bold'>ΗΜΜΥ ΕΜΠ</span>, <span class='bold'>ΣΕΜΦΕ</span>
-                    ή <span class='bold'>ΜΠΛΑ</span>, τότε μπορείς να <span class='bold'>δηλώσεις</span> το μάθημα επίσημα, με <span class='bold'>εξέταση</span>
-                    και <span class='bold'>βαθμό</span>.
-                </p>
-                <p>
-                    Το μάθημα είναι όμως <span class='bold'>ανοιχτό</span> για <span class='bold'>οποιονδήποτε</span> ενδιαφέρεται.
-					Αν είσαι <span class='bold'>φοιτητής</span> πληροφορικής, <span class='bold'>μαθητής</span> λυκείου ή <span class='bold'>επαγγελματίας</span>
-                    μηχανικός λογισμικού και σε <span class='bold'>ενδιαφέρει</span> η κρυπτογραφία θα
-                    <i>χαρούμε</i> να σε δούμε εκεί!
-                </p>
-				<p>
-					<span class='bold'>Δεν μπορείς</span> να <span class='bold'>παρακολουθήσεις</span> τις διαλέξεις;
-					Όλο το υλικό θα <span class='bold'>βιντεοσκοπηθεί</span> και θα <span class='bold'>δημοσιευθεί!</span>
-				</p>
-				<p>Το υλικό του μαθήματος έχει άδεια <span class='bold'>Creative Commons ΒΥ (CC BY).</span></p>
-				<h3 class='page-header'>Διαδικαστικά</h3>
+				<h2 class='page-header'>Διαδικαστικά</h2>
+				<p class='important'>Τα μαθήματα ξεκίνησαν την Τρίτη 6/10</p>
 				<p>Το μάθημα θα διεξάγεται την <span class='bold'>Τρίτη 17:00 - 19:00</span> και την <span class='bold'>Παρασκευή 16:00 - 18:00</span> στην <span class='bold'>Αίθουσα 005</span> στα Ν. Κτ. Ηλεκτρολόγων.</p>
+				<p>Οι ώρες γραφείου είναι την <span class='bold'>Παρασκευή 18:00 - 19:00</span>.</p>
+				<p><a href='https://corelab.ntua.gr/index.gr.html'>Corelab</a></p>
 				
-				<!-- Material -->
-				<h2 class='page-header' id='material'>Διαλέξεις</h2>
-				<ol>
-					<li><span class='bold'>Ιστορική κρυπτογραφία.</span> Διαδικαστικά του μαθήματος.
-					Ιστορία της κρυπτογραφίας. Συμμετρική κρυπτογραφία. XOR. 
-					Κωδικοποιήσεις, base64, base58. Σύστημα Καίσαρα, rot13, αντικατάστασης. 
-					Κρυπτανάλυση με ανάλυση συχνότητας. Κρυπτοσύστημα Vigenere. 
-					Κρυπτανάλυση με μέθοδο δείκτη σύμπτωσης.
-					<ul class='unstyled'>
-						<li><span class='exercise'>Άσκηση:</span> Αντιστρέψτε ένα base64.</li>
-						<li><span class='exercise'>Άσκηση:</span> “Σπάστε” μία κρυπτογράφηση με αντικατάσταση αγνώστου κλειδιού 
-						χρησιμοποιώντας ανάλυση συχνότητας. <span class='bold'>Εναλλακτικά:</span> “σπάστε” μια κρυπτογράφηση Vigenere με μέθοδο 
-						δείκτη σύμπτωσης.</li>
-					</ul>
-					</li>
-					<li><span class='bold'>Μοντέλα και Αποδείξεις Ασφάλειας στην Κρυπτογραφία.</span> Τέλεια μυστικότητα (Παράδειγμα:One-time pad) . Μοντέλα Επιθέσεων (CO, KPA, CPA, CCA), Semantic security, Indistinguishability, Γενική Μορφή Αποδείξεων Μέσω Αναγωγών.</li>
-					<li><span class='bold'>Stream ciphers.</span> Γεννήτριες τυχαίων αριθμών. Blum Blum Shub. Stream ciphers. RC4.</li>
-					<li><span class='bold'>Hashes.</span> Επισκόπηση θεωρίας πολυπλοκότητας. Κλάσεις πολυπλοκότητας P και NP. NP-hardness. One-way functions. Επέκταση κλειδιού, PBKDF. Hash functions. Collision resistance. Κατασκευή Merkle-Damgård.</li>
-					<li><span class='bold'>Εφαρμογές hash.</span> Range-collision resistance. Οι συναρτήσεις MD5, SHA256, RIPEMD, bcrypt και scrypt. Δέντρα Merkle. Ασφαλής αποθήκευση κωδικών πρόσβασης. Αλάτι. Hash commitment / timestamping.
-					<ul class='unstyled'>
-						<li><span class='exercise'>Άσκηση:</span> Αντιστρέψτε ένα SHA256 hash.</li>
-					</ul>
-					</li>
-					
-					<li><span class='bold'>HMAC.</span></li>
-					<li><span class='bold'>Block ciphers.</span> AES. Πολυώνυμα. Modes of operation: ECB, CBC, CTR. IVs.
-					<ul class='unstyled'>
-						<li><span class='exercise'>Άσκηση:</span> Βρείτε τι δείχνει μία εικόνα που έχει κρυπτογραφηθεί με ECB AES με άγνωστο κλειδί.</li>
-					</ul>
-					</li>
-					<li><span class='bold'>Θεωρία αριθμών I.</span> Αριθμητική modulo. Διαιρετότητα. Θεμελιώδες θεώρημα της αριθμητικής, με απόδειξη. Αλγόριθμος Ευκλείδη και επεκτεταμένος αλγόριθμος. Υπολογισμός αντιστρόφου. Πολυπλοκότητα αντιστροφής.
-					<ul class='unstyled'>
-						<li><span class='exercise'>Άσκηση:</span> Να βρεθούν (μεγάλοι) αντίστροφοι.</li>
-					</ul>
-					</li>
-					<li><span class='bold'>Θεωρία ομάδων I.</span> Ο δακτύλιος Zm. Τα units του Zm. Κυκλικές ομάδες, δακτύλιοι, γεννήτορες, σώματα, σύμπλοκα, τάξη υποομάδας. Θεώρημα Lagrange. Δομές των ομάδων Zp* και U(Zn).
-					<ul class='unstyled'>
-						<li><span class='exercise'>Άσκηση:</span> Να βρεθεί αριθμός που ικανοποιεί (μεγάλα) κινέζικα υπόλοιπα.</li>
-					</ul>
-					</li>
-					<li><span class='bold'>Θεωρία αριθμών ΙΙ.</span> Γρήγορος υπολογισμός δύναμης. Η συνάρτηση φ του Euler. Μικρό θεώρημα του Fermat ως ειδική περίπτωση του Euler. Θεώρημα Euler, με απόδειξη.</li>
-					<li><span class='bold'>Περισσότερη θεωρία αριθμών & ομάδων.</span> Κινέζικο θεώρημα υπολοίπων, με απόδειξη. Ισομορφισμοί Zm x Zn με Zmn και U(Zm) x U(Zn) με U(Zmn). Τετραγωνικά υπόλοιπα. Σύμβολα Legendre και Jacobi.
-					<ul class='unstyled'>
-						<li><span class='exercise'>Άσκηση:</span> Να βρεθεί αριθμός που ικανοποιεί (μεγάλα) κινέζικα υπόλοιπα.</li>
-					</ul>
-					</li>
-					<li><span class='bold'>Υπολογιστικότητα πρώτων αριθμών.</span> Η δυσκολία του προβλήματος παραγοντοποίησης. Έλεγχος πρώτων αριθμών Fermat. Οι αριθμοί Carmichael. Έλεγχος πρώτων αριθμών Miller-Rabin.
-					<ul class='unstyled'>
-						<li><span class='exercise'>Άσκηση:</span> Έλεγχος μεγάλου πρώτου, παραγοντοποίηση πρώτου.</li>
-					</ul>
-					</li>
-					<li><span class='bold'>RSA.</span> Ασύμμετρη κρυπτογραφία. Εξισώσεις ορθότητας. Ορισμός Ασφάλειας. Το κρυπτοσύστημα RSA. Σχεση Με Παραγοντοποίηση. Επιθέσεις στο RSA (επίθεση κοινού γινομένου, επίθεση μικρού εκθέτη, μερική ανάκτηση πληροφοριών). Padded RSA και OAEP.
-					<ul class='unstyled'>
-						<li><span class='exercise'>Άσκηση:</span> “Σπάσιμο” RSA όταν έχουν χρησιμοποιηθεί δημόσια κλειδιά με κοινούς πρώτους παράγοντες. Διανομή ενός κρυπτογραφημένου μηνύματος και δημόσιου κλειδιού σε κάθε φοιτητή για τα οποία θα υπάρχει αντίστοιχο κλειδί άλλου φοιτητή με κοινό πρώτο.</li>
-					</ul>
-					</li>
-					<li><span class='bold'>Κρυπτογραφία Διακριτού Λογαρίθμου Ι.</span> Ορισμός διακριτού λογαρίθμου. Ανταλλαγή Κλειδιών Diffie-Hellman. CDH, DDH. Σχέση με DLOG. Το κρυπτοσύστημα ElGamal. Ορισμός ασφαλείας. Ιδιότητες CPA, CCA. Malleability Ομομορφικές Ιδιότητες.</li>
-					<li><span class='bold'>Κρυπτογραφία Διακριτού Λογαρίθμου ΙΙ.</span>Ελλειπτικές Καμπύλες, Θεωρητικό Υπόβαθρο, Κριτήρια Επιλογής, Το πρόβλημα DLOG και κρυπτοσυστήματα EC.</li>
-					<li><span class='bold'>Ψηφιακές υπογραφές.</span> Εξισώσεις ορθότητας. Ορισμός Ασφάλειας. Ψηφιακές υπογραφές με RSA. (απλές - hash) απόδειξη ασφαλείας στο μοντέλο του τυχαίο μαντείου. Ψηφιακές υπογραφές ElGamal.</li>
-					<li><span class='bold'>Κρυπτογραφία στο web.</span> SSL/TLS. HTTPS. Forward secrecy. sslstrip. HSTS. Certificate authorities. Certificate chains. Certificate pinning.</li>
-					<li><span class='bold'>Επιθέσεις στο HTTPS.</span> MITM. Επιθέσεις side-channel: CRIME, BREACH, POODLE.</li>
-					<li><span class='bold'>Κρυπτογραφημένες επικοινωνίες.</span> End-to-end κρυπτογράφηση. GPG. Web of trust. OTR. Deniability. Αποκεντρωμένα ασφαλή συστήματα. Tor.
-					<ul class='unstyled'>
-						<li><span class='exercise'>Άσκηση:</span> Δημιουργία κλειδιών GPG και OTR, αποστολή και λήψη κρυπτογραφημένων και πιστοποιημένων chat και email.</li>
-						<li><span class='exercise'>Άσκηση:</span> Δημιουργία hidden service.</li>
-					</ul>
-					</li>
-					<li><span class='bold'>Zero-knowledge proofs of knowledge.</span> Τυπικός Ορισμός και Παραλλαγές σχέση με πολυπλοκότητα (Ισομορφισμός Γραφημάτων,  3-Χρωματισμός) Σ-Πρωτόκολλα  (Schnorr, Chaum Pedersen) Μη διαλογικές αποδείξεις (Fiat-Shamir Heuristic), Εφαρμογές (Σχήματα ταυτοποίησης Non-Malleable Crypto-Cramer Shoup)</li>
-					<li><span class='bold'>Ψηφιακές ψηφοφορίες.</span> Ομομορφικά συστήματα. Μixnets. Τυφλές υπογραφές του Chaum.</li>
-					<li><span class='bold'>Blockchain.</span> Consensus. Proof of work. Bitcoin. Συναλλαγές. Ο γράφος συναλλαγών. Ρέστα.
-					<ul class='unstyled'>
-						<li><span class='exercise'>Άσκηση:</span> Δημιουργία συναλλαγών.</li>
-					</ul>
-					</li>
-					<li><span class='bold'>Εφαρμογές του bitcoin.</span> Bitcoin script. Multisig. Coinjoin. Κεντρική και αποκεντρωμένη απόδοση ονομάτων. DNS. Η εικασία Zooko. Namecoin.
-					<ul class='unstyled'>
-						<li><span class='exercise'>Άσκηση:</span> Δημιουργία τυχερών παιχνιδιών χωρίς κεντρικές αρχές.</li>
-						<li><span class='exercise'>Άσκηση:</span> Αυτοματοποίηση προώθησης συναλλαγών.</li>
-					</ul>
-					</li>
-				</ol>
+				<h2 class='page-header'>Επόμενη διάλεξη 13/10</h2>
+				<p><a href='material.html'>Δες όλες τις διαλέξεις και την ύλη τους</a></p>
 			</main>
-			<!--<h2 class='credits'>Συντελεστές</h2>
-			<img src='static/img/papaki.png' alt='Papaki Logo' />-->
         </div>
 {% endblock %}
