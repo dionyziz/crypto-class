@@ -1,18 +1,8 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset='utf-8' />
-        <title>Διαλέξεις</title>
+﻿{% extends "base.html" %}
 
-        <!-- Bootstrap -->
-		<link rel="shortcut icon" href="static/img/favicon.ico">
-		
-        <link rel='stylesheet' type='text/css' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css' />
-        <link rel='stylesheet' type='text/css' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css' />
+{% load bootstrap3 %}
 
-        <link rel="stylesheet" type="text/css" href="/static/css/style.css">
-    </head>
-	<body>
+{% block maincontent %}
         <div class='container'>
             <header class='jumbotron'>
                 <h1>Διαλέξεις</h1>
@@ -34,13 +24,14 @@
 						<li><a href='http://crypto-class.gr/exercises/1.2/'>Άσκηση 2</a></li>
 						<li><a href='http://crypto-class.gr/exercises/1.3/'>Άσκηση 3</a></li>
 					</ul>
-				<!-- 2 --><li><span class='bold'>Μοντέλα και Αποδείξεις Ασφάλειας στην Κρυπτογραφία</span><span class='italic'> (Διδάσων: Παναγιώτης Τσανάκας)</span>. Τέλεια μυστικότητα (Παράδειγμα:One-time pad) . Μοντέλα Επιθέσεων (CO, KPA, CPA, CCA), Semantic security, Indistinguishability, Γενική Μορφή Αποδείξεων Μέσω Αναγωγών.</li>
+				<!-- 2 --><li><span class='bold'>Μοντέλα και Αποδείξεις Ασφάλειας στην Κρυπτογραφία</span><span class='italic'> (Διδάσων: Παναγιώτης Γροντάς)</span>. Τέλεια μυστικότητα (Παράδειγμα:One-time pad) . Μοντέλα Επιθέσεων (CO, KPA, CPA, CCA), Semantic security, Indistinguishability, Γενική Μορφή Αποδείξεων Μέσω Αναγωγών.</li>
 					<ul class='unstyled'>
+						<li>Διαφάνειες μαθήματος <a href='static/slides/02-formal-models.pdf'>PDF</a></li>
 						<li><a href='http://crypto-class.gr/exercises/2.0/'>Άσκηση 1</a></li>
 					</ul>
 				<!-- 3 --><li><span class='bold'>Stream ciphers</span><span class='italic'> (Διδάσκων: Πέτρος Ποτίκας)</span>. Γεννήτριες τυχαίων αριθμών. Blum Blum Shub. Stream ciphers. RC4.</li>
 
-				<!-- 4 --><li><span class='bold'>Θεωρία πολυπλοκότητας</span><span class='italic'> (Διδάσκων: )</span>Επισκόπηση θεωρίας πολυπλοκότητας. Κλάσεις πολυπλοκότητας P και NP. NP-hardness. One-way functions.</li>
+				<!-- 4 --><li><span class='bold'>Θεωρία πολυπλοκότητας</span><span class='italic'> (Διδάσκων: Στάθης Ζάχος)</span>Επισκόπηση θεωρίας πολυπλοκότητας. Κλάσεις πολυπλοκότητας P και NP. NP-hardness. One-way functions.</li>
 				
 				<!-- 5 --><li><span class='bold'>Hashes</span><span class='italic'> (Διδάσκων: Πέτρος Ποτίκας)</span>. Επισκόπηση θεωρίας πολυπλοκότητας. Κλάσεις πολυπλοκότητας P και NP. NP-hardness. One-way functions. Επέκταση κλειδιού, PBKDF. Hash functions. Collision resistance. Κατασκευή Merkle-Damgård.</li>
 					
@@ -60,7 +51,7 @@
 				
 				<!-- 13 --><li><span class='bold'>Υπολογιστικότητα πρώτων αριθμών</span><span class='italic'> (Διδάσκων: Πέτρος Ποτίκας)</span>. Η δυσκολία του προβλήματος παραγοντοποίησης. Έλεγχος πρώτων αριθμών Fermat. Οι αριθμοί Carmichael. Έλεγχος πρώτων αριθμών Miller-Rabin.</li>
 				
-				<!-- 14 --><li><span class='bold'>RSA 17/11/15</span><span class='italic'> (Διδάσων: Παναγιώτης Γροντάς)</span>. Ασύμμετρη κρυπτογραφία. Εξισώσεις ορθότητας. Ορισμός Ασφάλειας. Το κρυπτοσύστημα RSA. Σχεση Με Παραγοντοποίηση. Επιθέσεις στο RSA (επίθεση κοινού γινομένου, επίθεση μικρού εκθέτη, μερική ανάκτηση πληροφοριών). Padded RSA και OAEP.</li>
+				<!-- 14 --><li><span class='bold'>RSA</span><span class='italic'> (Διδάσων: Παναγιώτης Γροντάς)</span>. Ασύμμετρη κρυπτογραφία. Εξισώσεις ορθότητας. Ορισμός Ασφάλειας. Το κρυπτοσύστημα RSA. Σχεση Με Παραγοντοποίηση. Επιθέσεις στο RSA (επίθεση κοινού γινομένου, επίθεση μικρού εκθέτη, μερική ανάκτηση πληροφοριών). Padded RSA και OAEP.</li>
 				
 				<!-- 15 --><li><span class='bold'>Κρυπτογραφία Διακριτού Λογαρίθμου Ι</span><span class='italic'> (Διδάσων: Παναγιώτης Γροντάς)</span>. Ορισμός διακριτού λογαρίθμου. Ανταλλαγή Κλειδιών Diffie-Hellman. CDH, DDH. Σχέση με DLOG. Το κρυπτοσύστημα ElGamal. Ορισμός ασφαλείας. Ιδιότητες CPA, CCA. Malleability Ομομορφικές Ιδιότητες.</li>
 				
@@ -84,10 +75,4 @@
 			</ol>
 			</main>
 		</div>
-		
-		<!-- jQuery -->
-        <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script>
-        <!-- Bootstrap JS -->
-        <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
-    </body>
-</html>
+{% endblock %}
