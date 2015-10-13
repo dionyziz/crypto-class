@@ -1,18 +1,8 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset='utf-8' />
-        <title>Συχνές Ερωτήσεις</title>
-		
-		<!-- Bootstrap -->
-		<link rel="shortcut icon" href="static/img/favicon.ico">
-		
-        <link rel='stylesheet' type='text/css' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css' />
-        <link rel='stylesheet' type='text/css' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css' />
-		
-		<link rel="stylesheet" type="text/css" href="/static/css/style.css">
-    </head>
-    <body>
+﻿{% extends "base.html" %}
+
+{% load bootstrap3 %}
+
+{% block maincontent %}
 		<div class='container'>
             <header class='jumbotron'>
                 <h1>Συχνές Ερωτήσεις</h1>
@@ -76,10 +66,4 @@
 			<p>Φόρμουλα: ΤΒ =  |_  ΒΕ (1 + (ΒΘΑ+ΒΠΑ) / 20)  _|</p>
 			</main>
         </div>
-
-        <!-- jQuery -->
-        <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script>
-        <!-- Bootstrap JS -->
-        <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
-    </body>
-</html>
+{% endblock %}
