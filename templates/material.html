@@ -1,18 +1,8 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset='utf-8' />
-        <title>Διαλέξεις</title>
+﻿{% extends "base.html" %}
 
-        <!-- Bootstrap -->
-		<link rel="shortcut icon" href="static/img/favicon">
-		
-        <link rel='stylesheet' type='text/css' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css' />
-        <link rel='stylesheet' type='text/css' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css' />
+{% load bootstrap3 %}
 
-        <link rel="stylesheet" type="text/css" href="/static/css/style.css">
-    </head>
-	<body>
+{% block maincontent %}
         <div class='container'>
             <header class='jumbotron'>
                 <h1>Διαλέξεις</h1>
@@ -85,10 +75,4 @@
 			</ol>
 			</main>
 		</div>
-		
-		<!-- jQuery -->
-        <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script>
-        <!-- Bootstrap JS -->
-        <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
-    </body>
-</html>
+{% endblock %}
