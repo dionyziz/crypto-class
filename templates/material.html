@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8' />
+        <title>Διαλέξεις</title>
+
+        <!-- Bootstrap -->
+		<link rel="shortcut icon" href="static/img/favicon.ico">
+		
+        <link rel='stylesheet' type='text/css' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css' />
+        <link rel='stylesheet' type='text/css' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css' />
+
+        <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    </head>
+	<body>
+        <div class='container'>
+            <header class='jumbotron'>
+                <h1>Διαλέξεις</h1>
+				<h2>Κρυπτογραφία</h2>
+                <p>Χειμερινό εξάμηνο 2015-2016, ΕΜΠ</p>
+				<img src='static/img/NTUA.png' alt='NTUA Logo' height='140' width='140'/>
+				<p><a href='http://www.ece.ntua.gr/el'>ΗΜΜΥ ΕΜΠ</a></p>
+            </header>			
+			
+			<main>	
+			<!-- Material -->
+			<h2 class='page-header' id='material'>Διαλέξεις</h2>
+			<ol>
+				<!-- 1 --><li><span class='bold'>Ιστορική κρυπτογραφία</span><span class='italic'> (Διδάσκων: Διονύσης Ζήνδρος)</span>. Διαδικαστικά του μαθήματος. Ιστορία της κρυπτογραφίας. Συμμετρική κρυπτογραφία. XOR. Κωδικοποιήσεις, base64, base58. Σύστημα Καίσαρα, rot13, αντικατάστασης. Κρυπτανάλυση με ανάλυση συχνότητας. Κρυπτοσύστημα Vigenere. Κρυπτανάλυση με μέθοδο δείκτη σύμπτωσης.</li>
+					<ul class='unstyled'>
+						<li>Εισαγωγικές διαφάνειες μαθήματος <a href='static/slides/00-administrivia.pdf'>PDF</a> ή <a href='static/slides/00-administrivia.pptx'>PPTX</a></li>
+						<li>Διαφάνειες μαθήματος <a href='static/slides/01-administrivia.pdf'>PDF</a> ή <a href='static/slides/01-administrivia.pptx'>PPTX</a></li>
+						<li><a href='http://crypto-class.gr/exercises/1.1/'>Άσκηση 1</a></li>
+						<li><a href='http://crypto-class.gr/exercises/1.2/'>Άσκηση 2</a></li>
+						<li><a href='http://crypto-class.gr/exercises/1.3/'>Άσκηση 3</a></li>
+					</ul>
+				<!-- 2 --><li><span class='bold'>Μοντέλα και Αποδείξεις Ασφάλειας στην Κρυπτογραφία</span><span class='italic'> (Διδάσων: Παναγιώτης Τσανάκας)</span>. Τέλεια μυστικότητα (Παράδειγμα:One-time pad) . Μοντέλα Επιθέσεων (CO, KPA, CPA, CCA), Semantic security, Indistinguishability, Γενική Μορφή Αποδείξεων Μέσω Αναγωγών.</li>
+					<ul class='unstyled'>
+						<li><a href='http://crypto-class.gr/exercises/2.0/'>Άσκηση 1</a></li>
+					</ul>
+				<!-- 3 --><li><span class='bold'>Stream ciphers</span><span class='italic'> (Διδάσκων: Πέτρος Ποτίκας)</span>. Γεννήτριες τυχαίων αριθμών. Blum Blum Shub. Stream ciphers. RC4.</li>
+
+				<!-- 4 --><li><span class='bold'>Θεωρία πολυπλοκότητας</span><span class='italic'> (Διδάσκων: )</span>Επισκόπηση θεωρίας πολυπλοκότητας. Κλάσεις πολυπλοκότητας P και NP. NP-hardness. One-way functions.</li>
+				
+				<!-- 5 --><li><span class='bold'>Hashes</span><span class='italic'> (Διδάσκων: Πέτρος Ποτίκας)</span>. Επισκόπηση θεωρίας πολυπλοκότητας. Κλάσεις πολυπλοκότητας P και NP. NP-hardness. One-way functions. Επέκταση κλειδιού, PBKDF. Hash functions. Collision resistance. Κατασκευή Merkle-Damgård.</li>
+					
+				<!-- 6 --><li><span class='bold'>Εφαρμογές hash</span><span class='italic'> (Διδάσκων: Διονύσης Ζήνδρος)</span>. Range-collision resistance. Οι συναρτήσεις MD5, SHA256, RIPEMD, bcrypt και scrypt. Δέντρα Merkle. Ασφαλής αποθήκευση κωδικών πρόσβασης. Αλάτι. Hash commitment / timestamping.</li>
+				
+				<!-- 7 --><li><span class='bold'>HMAC</span><span class='italic'> (Διδάσκων: Πέτρος Ποτίκας)</span></li>
+				
+				<!-- 8 --><li><span class='bold'>Block ciphers</span><span class='italic'> (Διδάσκων: Πέτρος Ποτίκας)</span>. AES. Πολυώνυμα. Modes of operation: ECB, CBC, CTR. IVs.
+				
+				<!-- 9 --><li><span class='bold'>Θεωρία αριθμών I</span><span class='italic'> (Διδάσκων: Διονύσης Ζήνδρος)</span>. Αριθμητική modulo. Διαιρετότητα. Θεμελιώδες θεώρημα της αριθμητικής, με απόδειξη. Αλγόριθμος Ευκλείδη και επεκτεταμένος αλγόριθμος. Υπολογισμός αντιστρόφου. Πολυπλοκότητα αντιστροφής.</li>
+				
+				<!-- 10 --><li><span class='bold'>Θεωρία ομάδων I</span><span class='italic'> (Διδάσκων: Πέτρος Ποτίκας)</span>. Ο δακτύλιος Zm. Τα units του Zm. Κυκλικές ομάδες, δακτύλιοι, γεννήτορες, σώματα, σύμπλοκα, τάξη υποομάδας. Θεώρημα Lagrange. Δομές των ομάδων Zp* και U(Zn).</li>
+				
+				<!-- 11 --><li><span class='bold'>Θεωρία αριθμών ΙI</span><span class='italic'> (Διδάσκων: Διονύσης Ζήνδρος)</span>. Γρήγορος υπολογισμός δύναμης. Η συνάρτηση φ του Euler. Μικρό θεώρημα του Fermat ως ειδική περίπτωση του Euler. Θεώρημα Euler, με απόδειξη.</li>
+				
+				<!-- 12 --><li><span class='bold'>Περισσότερη θεωρία αριθμών &amp; ομάδων</span><span class='italic'> (Διδάσκων: Πέτρος Ποτίκας)</span>. Κινέζικο θεώρημα υπολοίπων, με απόδειξη. Ισομορφισμοί Zm x Zn με Zmn και U(Zm) x U(Zn) με U(Zmn). Τετραγωνικά υπόλοιπα. Σύμβολα Legendre και Jacobi.</li>
+				
+				<!-- 13 --><li><span class='bold'>Υπολογιστικότητα πρώτων αριθμών</span><span class='italic'> (Διδάσκων: Πέτρος Ποτίκας)</span>. Η δυσκολία του προβλήματος παραγοντοποίησης. Έλεγχος πρώτων αριθμών Fermat. Οι αριθμοί Carmichael. Έλεγχος πρώτων αριθμών Miller-Rabin.</li>
+				
+				<!-- 14 --><li><span class='bold'>RSA 17/11/15</span><span class='italic'> (Διδάσων: Παναγιώτης Γροντάς)</span>. Ασύμμετρη κρυπτογραφία. Εξισώσεις ορθότητας. Ορισμός Ασφάλειας. Το κρυπτοσύστημα RSA. Σχεση Με Παραγοντοποίηση. Επιθέσεις στο RSA (επίθεση κοινού γινομένου, επίθεση μικρού εκθέτη, μερική ανάκτηση πληροφοριών). Padded RSA και OAEP.</li>
+				
+				<!-- 15 --><li><span class='bold'>Κρυπτογραφία Διακριτού Λογαρίθμου Ι</span><span class='italic'> (Διδάσων: Παναγιώτης Γροντάς)</span>. Ορισμός διακριτού λογαρίθμου. Ανταλλαγή Κλειδιών Diffie-Hellman. CDH, DDH. Σχέση με DLOG. Το κρυπτοσύστημα ElGamal. Ορισμός ασφαλείας. Ιδιότητες CPA, CCA. Malleability Ομομορφικές Ιδιότητες.</li>
+				
+				<!-- 16 --><li><span class='bold'>Κρυπτογραφία Διακριτού Λογαρίθμου ΙΙ</span><span class='italic'> (Διδάσων: Παναγιώτης Γροντάς)</span>. Ελλειπτικές Καμπύλες, Θεωρητικό Υπόβαθρο, Κριτήρια Επιλογής, Το πρόβλημα DLOG και κρυπτοσυστήματα EC.</li>
+				
+				<!-- 17 --><li><span class='bold'>Ψηφιακές υπογραφές</span><span class='italic'> (Διδάσων: Παναγιώτης Γροντάς)</span>. Εξισώσεις ορθότητας. Ορισμός Ασφάλειας. Ψηφιακές υπογραφές με RSA. (απλές - hash) απόδειξη ασφαλείας στο μοντέλο του τυχαίο μαντείου. Ψηφιακές υπογραφές ElGamal.</li>
+				
+				<!-- 18 --><li><span class='bold'>Κρυπτογραφία στο web</span><span class='italic'> (Διδάσκων: Διονύσης Ζήνδρος)</span>. SSL/TLS. HTTPS. Forward secrecy. sslstrip. HSTS. Certificate authorities. Certificate chains. Certificate pinning.</li>
+				
+				<!-- 19 --><li><span class='bold'>Επιθέσεις στο HTTPS</span><span class='italic'> (Διδάσκων: Διονύσης Ζήνδρος)</span>. MITM. Επιθέσεις side-channel: CRIME, BREACH, POODLE.</li>
+				
+				<!-- 20 --><li><span class='bold'>Κρυπτογραφημένες επικοινωνίες</span><span class='italic'> (Διδάσκων: Διονύσης Ζήνδρος)</span>. End-to-end κρυπτογράφηση. GPG. Web of trust. OTR. Deniability. Αποκεντρωμένα ασφαλή συστήματα. Tor.</li>
+				
+				<!-- 21 --><li><span class='bold'>Zero-knowledge proofs of knowledge</span><span class='italic'> (Διδάσκων: Παναγιώτης Γροντάς)</span>. Τυπικός Ορισμός και Παραλλαγές σχέση με πολυπλοκότητα (Ισομορφισμός Γραφημάτων,  3-Χρωματισμός) Σ-Πρωτόκολλα  (Schnorr, Chaum Pedersen) Μη διαλογικές αποδείξεις (Fiat-Shamir Heuristic), Εφαρμογές (Σχήματα ταυτοποίησης Non-Malleable Crypto-Cramer Shoup)</li>
+
+				<!-- 22 --><li><span class='bold'>Ψηφιακές ψηφοφορίες</span><span class='italic'>(Διδάσκων: Παναγιώτης Γροντάς και Γιώργος Τσουκαλάς)</span>. Ομομορφικά συστήματα. Μixnets. Τυφλές υπογραφές του Chaum.</li>
+				
+				<!-- 23 --><li><span class='bold'>Blockchain</span><span class='italic'> (Διδάσκων: Διονύσης Ζήνδρος)</span>. Consensus. Proof of work. Bitcoin. Συναλλαγές. Ο γράφος συναλλαγών. Ρέστα.</li>
+				
+				<!-- 24 --><li><span class='bold'>Εφαρμογές του bitcoin</span><span class='italic'> (Διδάσκων: Διονύσης Ζήνδρος)</span>. Bitcoin script. Multisig. Coinjoin. Κεντρική και αποκεντρωμένη απόδοση ονομάτων. DNS. Η εικασία Zooko. Namecoin.</li>
+			</ol>
+			</main>
+		</div>
+		
+		<!-- jQuery -->
+        <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js'></script>
+        <!-- Bootstrap JS -->
+        <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
+    </body>
+</html>
