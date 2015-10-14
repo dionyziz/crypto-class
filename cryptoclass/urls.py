@@ -15,8 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.views.generic import TemplateView
 
 urlpatterns = [
+    url(r'^faq', TemplateView.as_view(template_name='faq.html'), name="faq_index"),
+    url(r'^material', TemplateView.as_view(template_name='material.html'), name="lecture_index"),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('accounts.urls')),
     url(r'^', include('exercises.urls'), name='exercise_index'),
