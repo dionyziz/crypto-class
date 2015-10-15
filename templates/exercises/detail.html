@@ -62,7 +62,7 @@
             
             {% if file_submission %}
             <table class="table">
-                <tr class="{% if file_submission.score == -1 %}info{% elif file_submission.score == 0 %}danger{% else %}success{% endif %}">
+                <tr class="{{ file_submission.get_colored_status }}">
                     <td>{{ file_submission.user.username }}</td>
                     <td>{{ file_submission.time_submitted }}</td>
                     <td><a href="{% url 'exercise-last_submission' exercise_tag=exercise.tag %}">Προβολή υποβολής</a></td>
@@ -70,7 +70,7 @@
                         {% if file_submission.score == -1 %}
                             -
                         {% else %}
-                            {{ file_submission.score }}
+                            {{ file_submission.score }}/10
                         {% endif %}
                     </td>
                 </tr>

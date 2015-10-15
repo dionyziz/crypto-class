@@ -138,6 +138,15 @@ class FileSubmission(models.Model):
                 self.time_submitted.strftime('%d/%m/%y %H:%M')
                 )
 
+    def get_colored_status(self):
+        """ This is used for changing row color (bootstrap) """
+        if self.score == FileSubmission.NOT_GRADED:
+            return "info"
+        elif self.score == 0:
+            return "danger"
+        else:
+            return "success"
+
 
 class BonusLink(models.Model):
     """A bonus link that when accessed gives extra points to the student.
