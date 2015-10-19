@@ -63,16 +63,17 @@
             {% if file_submission %}
             <table class="table">
                 <tr class="{{ file_submission.get_colored_status }}">
-                    <td>{{ file_submission.user.username }}</td>
-                    <td>{{ file_submission.time_submitted }}</td>
-                    <td><a href="{% url 'exercise-last_submission' exercise_tag=exercise.tag %}">Προβολή υποβολής</a></td>
-                    <td>
+                    <th>Τελευταία Υποβολή:</td>
+                    <td><a href="{% url 'exercise-last_submission' exercise_tag=exercise.tag %}">{{ file_submission.uploaded_filename }}</a></td>
+                    <td><b>
                         {% if file_submission.score == -1 %}
                             -
                         {% else %}
                             {{ file_submission.score }}/10
                         {% endif %}
+                        </b>
                     </td>
+                    <td>{{ file_submission.time_submitted }}</td>
                 </tr>
             </table>
             {% endif %}
