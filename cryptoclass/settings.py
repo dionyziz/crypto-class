@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'exercises.exercise2',
     'bootstrap3',
     'waffle',
+    'embed_video',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -119,9 +120,6 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
 LOGIN_REDIRECT_URL = '/exercises'
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 BOOTSTRAP3 = {
     # The URL to the jQuery JavaScript file

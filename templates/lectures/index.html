@@ -2,6 +2,7 @@
 
 {% load bootstrap3 %}
 {% load lecture_extras %}
+{% load embed_video_tags %}
 
 {% block maincontent %}
     <div class='container'>
@@ -25,12 +26,18 @@
                         </p>
                         <p>{{ lecture.description }}</p>
 
+			{% if lecture.video %}
+			<p>
+			{% video lecture.video 'small' %}
+			</p>
+			{% endif %}
+
                         {% if lecture.slides.all %}
                         <p>Διαφάνειες</p>
 
                         <ul class="list-group">
                         {% for slide in lecture.slides.all %}
-                        <li class="list-group-item">{{ slide.title }} <a href="{{ slide.file.url }}">{{ slide.file | file_extension }}</a></li>
+			<li class="list-group-item"><a href="{{slide.url}}">{{ slide.title }}</a></li>
                         {% endfor %}
                         </ul>
                         {% endif %}

@@ -8,7 +8,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('lectures', '0001_initial'),
-        ('exercises', '0010_auto_20151014_2040'),
+        ('exercises', '0011_add_uploaded_filename_field'),
     ]
 
     operations = [
