@@ -13,7 +13,22 @@ class Migration(migrations.Migration):
         ('exercises', '0009_generatedexercise'),
     ]
 
+    def submission_set_exercise(apps, schema_editor):
+        SubmittableExercise = apps.get_model("exercises","SubmittableExercise")
+        exercises = SubmittableExercise.objects.all()
+        for exercise in exercises:
+            for submission in exercise.submissions.all():
+                submission.exercise = exercise
+                submission.save()
+
     operations = [
+        migrations.AddField(
+            model_name='submission',
+            name='exercise',
+            field=models.ForeignKey(default=1, to='exercises.SubmittableExercise'),
+            preserve_default=False,
+        ),
+        migrations.RunPython(submission_set_exercise),
         migrations.CreateModel(
             name='FileSubmission',
             fields=[
@@ -26,12 +41,6 @@ class Migration(migrations.Migration):
         migrations.RemoveField(
             model_name='submittableexercise',
             name='submissions',
-        ),
-        migrations.AddField(
-            model_name='submission',
-            name='exercise',
-            field=models.ForeignKey(default=1, to='exercises.SubmittableExercise'),
-            preserve_default=False,
         ),
         migrations.AlterUniqueTogether(
             name='generatedexercise',
