@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 
 urlpatterns = [
+    url(r'^references', TemplateView.as_view(template_name='references.html'), name="references_index"),
     url(r'^faq', TemplateView.as_view(template_name='faq.html'), name="faq_index"),
     url(r'^material', TemplateView.as_view(template_name='material.html'), name="lecture_index"),
     url(r'^admin/', include(admin.site.urls)),
