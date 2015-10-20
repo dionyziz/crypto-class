@@ -37,11 +37,13 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
+    'lectures',
     'exercises',
     'exercises.exercise1',
     'exercises.exercise2',
     'bootstrap3',
     'waffle',
+    'embed_video',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -119,9 +121,6 @@ STATICFILES_DIRS = (
 )
 LOGIN_REDIRECT_URL = '/exercises'
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-
 BOOTSTRAP3 = {
     # The URL to the jQuery JavaScript file
     'jquery_url': '//code.jquery.com/jquery.min.js',
@@ -180,6 +179,11 @@ BOOTSTRAP3 = {
         'inline': 'bootstrap3.renderers.InlineFieldRenderer',
     },
 }
+
+# Uploaded files
+
+MEDIA_ROOT = os.environ.get('MEDIA_ROOT', os.path.join(BASE_DIR, "media"))
+MEDIA_URL = os.environ.get('MEDIA_URL', '/media/')
 
 # Registration app settings
 

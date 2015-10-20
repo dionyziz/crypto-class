@@ -1,0 +1,58 @@
+﻿{% extends "base.html" %}
+
+{% load bootstrap3 %}
+{% load lecture_extras %}
+{% load embed_video_tags %}
+
+{% block maincontent %}
+    <div class='container'>
+        <header class='jumbotron'>
+            <h1>Διαλέξεις</h1>
+            <h2>Κρυπτογραφία</h2>
+            <p>Χειμερινό εξάμηνο 2015-2016, ΕΜΠ</p>
+            <img src='/static/img/NTUA.png' alt='NTUA Logo' height='140' width='140'/>
+            <p><a href='http://www.ece.ntua.gr/el'>ΗΜΜΥ ΕΜΠ</a></p>
+        </header>			
+			
+        <main>	
+			<!-- Material -->
+			<h2 class='page-header' id='material'>Διαλέξεις</h2>
+			<ol>
+                    {% for lecture in lectures %}
+                    <li>
+                        <p>
+                            <span class="bold">{{ lecture.title }}</span>
+                            <span class="italic">(Διδάσκων: {{ lecture.teachers.all|join:", " }})</span. 
+                        </p>
+                        <p>{{ lecture.description }}</p>
+
+			{% if lecture.video %}
+			<p>
+			{% video lecture.video 'small' %}
+			</p>
+			{% endif %}
+
+                        {% if lecture.slides.all %}
+                        <p>Διαφάνειες</p>
+
+                        <ul class="list-group">
+                        {% for slide in lecture.slides.all %}
+			<li class="list-group-item"><a href="{{slide.url}}">{{ slide.title }}</a></li>
+                        {% endfor %}
+                        </ul>
+                        {% endif %}
+
+                        {% if lecture.exercises.all %}
+                        <p>Ασκήσεις</p>
+                        <ul class="list-group">
+                        {% for exercise in lecture.exercises.all %}
+                        <li class="list-group-item"><a href="/exercises/{{ exercise.tag }}">{{ exercise.title }}</a></li>
+                        {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+			</ol>
+			</main>
+		</div>
+{% endblock %}
