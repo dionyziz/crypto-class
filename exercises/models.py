@@ -1,3 +1,5 @@
+import os.path
+
 from django.db import models
 from django.db.models.query import EmptyQuerySet
 from django.contrib import admin
@@ -5,16 +7,6 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from jsonfield import JSONField
 from .registry import get_generator
-
-class Submission(models.Model):
-    user = models.ForeignKey(User)
-    time_submitted = models.DateTimeField()
-
-    answer = models.CharField(max_length=1025)
-    is_solution = models.BooleanField()
-
-    def __unicode__(self):
-        return u'%s: %s' % (self.user.username, self.time_submitted.strftime('%d/%m/%y %H:%M'))
 
 class SubmittableExercise(models.Model):
     # e.g. "1.1", "3.5" etc.
@@ -35,18 +27,11 @@ class SubmittableExercise(models.Model):
                             )
     deadline = models.DateTimeField()
 
-    submissions = models.ManyToManyField(Submission, related_name='submissions', blank=True)
-    # Applicable to theory exercises (folder to save pdfs)
-    # save_dir = models.FilePathField(upload_to=settings.UPLOAD_DIR, blank=True, max_length=500)
-
     def __unicode__(self):
         return unicode("%s: %s" % (self.tag, self.title))
 
     def can_be_submitted(self):
         return True
-
-    def get_user_submissions(self, user):
-        return self.submissions.filter(user=user).order_by('-time_submitted')
 
     def get_generated(self, user):
         if user.is_authenticated():
@@ -59,23 +44,26 @@ class SubmittableExercise(models.Model):
             generator_class = get_generator(self.tag)
         except KeyError:
             return None
+
         generator = generator_class()
         metadata = generator.metadata
         generated = GeneratedExercise()
         generated.exercise = self
         generated.metadata = generator.metadata
         generated.message = generator.message
+
         if user.is_authenticated():
             generated.user = user
             generated.save()
+
         return generated
-        
+
     def get_generated_metadata(self, user):
         generated = self.get_generated(user)
         if not generated:
             return None
         return generated.metadata
-    
+
     def get_generated_message(self, user):
         generated = self.get_generated(user)
         if not generated:
@@ -94,6 +82,71 @@ class GeneratedExercise(models.Model):
 
     class Meta:
         unique_together = (("exercise", "user",),)
+
+class Submission(models.Model):
+    user = models.ForeignKey(User)
+    time_submitted = models.DateTimeField()
+    exercise = models.ForeignKey(SubmittableExercise)
+
+    answer = models.CharField(max_length=1025)
+    is_solution = models.BooleanField()
+
+    def __unicode__(self):
+        return u'[%s] %s (%s)' % (
+                self.exercise.tag,
+                self.user.username,
+                self.time_submitted.strftime('%d/%m/%y %H:%M')
+                )
+
+def exercise_save_path(instance, filename):
+    (_, file_ext) = os.path.splitext(filename)
+
+    submissions = FileSubmission.objects.filter(
+                    user=instance.user,
+                    exercise=instance.exercise
+                    )
+
+    filename = '{0}_{1}_{2}{3}'.format(
+            instance.exercise.tag,
+            instance.user.username,
+            len(submissions),
+            file_ext
+            )
+
+    return 'submissions/exercise/{0}/{1}/{2}'.format(
+                instance.exercise.tag,
+                instance.user.username,
+                filename
+                )
+
+class FileSubmission(models.Model):
+    NOT_GRADED = -1
+
+    user = models.ForeignKey(User)
+    exercise = models.ForeignKey(SubmittableExercise)
+    time_submitted = models.DateTimeField()
+
+    score = models.SmallIntegerField(default=NOT_GRADED)
+    file = models.FileField(upload_to=exercise_save_path)
+    uploaded_filename = models.CharField(max_length=100)
+
+    def __unicode__(self):
+        return u'[%s] %s %s (%s)' % (
+                self.exercise.tag,
+                self.user.username,
+                self.file.url,
+                self.time_submitted.strftime('%d/%m/%y %H:%M')
+                )
+
+    def get_colored_status(self):
+        """ This is used for changing row color (bootstrap) """
+        if self.score == FileSubmission.NOT_GRADED:
+            return "info"
+        elif self.score == 0:
+            return "danger"
+        else:
+            return "success"
+
 
 class BonusLink(models.Model):
     """A bonus link that when accessed gives extra points to the student.

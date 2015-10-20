@@ -119,6 +119,9 @@ STATICFILES_DIRS = (
 )
 LOGIN_REDIRECT_URL = '/exercises'
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
 BOOTSTRAP3 = {
     # The URL to the jQuery JavaScript file
     'jquery_url': '//code.jquery.com/jquery.min.js',

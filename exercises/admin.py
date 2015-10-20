@@ -1,9 +1,10 @@
 from django.contrib import admin
 from .models import BonusLink, BonusView
 
-from .models import SubmittableExercise, Submission, GeneratedExercise
+from .models import SubmittableExercise, GeneratedExercise, Submission, FileSubmission
 
 admin.site.register(Submission)
+admin.site.register(FileSubmission)
 admin.site.register(SubmittableExercise)
 admin.site.register(GeneratedExercise)
 
