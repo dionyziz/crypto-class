@@ -8,7 +8,7 @@ class Teacher(models.Model):
         return self.name
 
 class Lecture(models.Model):
-    tag = models.CharField(max_length=10)
+    tag = models.IntegerField()
     title = models.CharField(max_length=150)
     description = models.TextField(blank=True)
     teachers = models.ManyToManyField(Teacher, related_name='lectures', blank=True)
