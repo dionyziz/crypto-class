@@ -12,7 +12,7 @@ class Lecture(models.Model):
     title = models.CharField(max_length=150)
     description = models.TextField(blank=True)
     teachers = models.ManyToManyField(Teacher, related_name='lectures', blank=True)
-    video = EmbedVideoField(null=True)
+    video = EmbedVideoField(null=True, blank=True)
 
     def __unicode__(self):
         return "%s : %s" % (self.tag, self.title)
