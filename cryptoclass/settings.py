@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
+    'lectures',
     'exercises',
     'exercises.exercise1',
     'exercises.exercise2',
@@ -180,6 +181,11 @@ BOOTSTRAP3 = {
         'inline': 'bootstrap3.renderers.InlineFieldRenderer',
     },
 }
+
+# Uploaded files
+
+MEDIA_ROOT = os.environ.get('MEDIA_ROOT', os.path.join(BASE_DIR, "media"))
+MEDIA_URL = os.environ.get('MEDIA_URL', '/media/')
 
 # Registration app settings
 

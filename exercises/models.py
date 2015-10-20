@@ -12,6 +12,7 @@ class SubmittableExercise(models.Model):
     # e.g. "1.1", "3.5" etc.
     tag = models.CharField(max_length=10)
     title = models.CharField(max_length=150)
+    lecture = models.ForeignKey('lectures.Lecture', related_name='exercises', blank=True, null=True)
 
     description = models.TextField(blank=True)
     statement_url = models.URLField(default='', blank=True)
