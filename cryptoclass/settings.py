@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'accounts',
     'exercises',
     'exercises.exercise1',
+    'exercises.exercise2',
     'bootstrap3',
     'waffle',
 )
