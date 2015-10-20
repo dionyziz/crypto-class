@@ -14,6 +14,7 @@ class HashExercise(object):
     SHA256 encoding class for the hands-on exercise of lesson 6 of crypto-class.
     '''
     def __init__(self):
+        self.metadata = {}
         self.metadata['password'] = password_generator()
         self.encode()
 
