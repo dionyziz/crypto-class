@@ -6,6 +6,6 @@ def validate(metadata, input_pass):
     '''
     return True if metadata['password'] == input_pass else False
 
+register_grader('1.0', validate)
 register_grader('1.1', validate)
 register_grader('1.2', validate)
-register_grader('1.3', validate)

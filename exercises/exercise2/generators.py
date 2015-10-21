@@ -21,4 +21,4 @@ class HashExercise(object):
     def encode(self):
         self.metadata['message'] = self.message = hashlib.sha256(self.metadata['password'].encode('utf8')).hexdigest()
 
-register_generator('4.1', HashExercise)
+register_generator('6.0', HashExercise)

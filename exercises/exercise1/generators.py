@@ -117,6 +117,6 @@ class SubstitutionExercise(object):
         else:
             self.cleartext = out
 
-register_generator('1.1', Base64Exercise)
-register_generator('1.2', Rot13Exercise)
-register_generator('1.3', SubstitutionExercise)
+register_generator('1.0', Base64Exercise)
+register_generator('1.1', Rot13Exercise)
+register_generator('1.2', SubstitutionExercise)
