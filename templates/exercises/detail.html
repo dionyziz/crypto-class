@@ -31,7 +31,7 @@
     {% if user.is_authenticated %}
         {% if exercise.type == exercise.AUTO_GRADING %}
             {% if solution %}
-                <div class="solution">Λύση: {{ solution.answer }}</div>
+            <div class="solution">Λύση: {{ solution.answer }} <span class="glyphicon glyphicon-ok"></span></div>
             {% else %}
                 <form action="{% url 'submit-solution' exercise_tag=exercise.tag %}" method="post">
                     {% csrf_token %}
@@ -63,7 +63,7 @@
             {% if file_submission %}
             <table class="table">
                 <tr class="{{ file_submission.get_colored_status }}">
-                    <th>Τελευταία Υποβολή:</td>
+                    <th>Τελευταία Υποβολή: <span class="glyphicon glyphicon-ok"></span></th>
                     <td><a href="{% url 'exercise-last_submission' exercise_tag=exercise.tag %}">{{ file_submission.uploaded_filename }}</a></td>
                     <td><b>
                         {% if file_submission.score == -1 %}
