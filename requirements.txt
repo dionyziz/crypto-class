@@ -1,8 +1,10 @@
+boto==2.38.0
 Django==1.8.4
 django-bootstrap==0.2.4
 django-bootstrap3==6.2.2
 django-embed-video==1.0.0
 django-registration-redux==1.2
+django-ses==0.7.0
 django-waffle==0.10.1
 gunicorn==19.3.0
 jsonfield==1.0.3
