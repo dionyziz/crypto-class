@@ -20,6 +20,14 @@ def homepage(request):
     context = {'user': request.user}
     return render(request, 'index.html', context)
 
+def is_exercise_submitted_by(exercise, user):
+    if exercise.type == SubmittableExercise.THEORETICAL:
+        submissions = FileSubmission.objects.filter(exercise=exercise, user=user)
+    else:
+        submissions = Submission.objects.filter(exercise=exercise, user=user)
+
+    return True if submissions else False
+
 def index(request):
     if waffle.flag_is_active(request, 'view_exercises'):
         exercise_list = SubmittableExercise.objects.order_by('tag')
@@ -28,11 +36,13 @@ def index(request):
 
     active_exercises = [ exercise for exercise in exercise_list if exercise.can_be_submitted() ]
     past_exercises = [ exercise for exercise in exercise_list if exercise not in active_exercises ]
+    submitted_exercises = [ exercise for exercise in exercise_list if is_exercise_submitted_by(exercise, request.user) ]
 
     context = {
             'user': request.user,
             'active_exercises': active_exercises,
             'past_exercises': past_exercises,
+            'submitted_exercises': submitted_exercises,
         }
     return render(request, 'exercises/index.html', context)
 

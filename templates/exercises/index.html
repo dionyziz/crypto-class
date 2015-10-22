@@ -20,7 +20,7 @@
                 <th>Παράδοση μέχρι </th>
             </tr>
             {% for exercise in active_exercises %}
-            <tr>
+            <tr {% if exercise in submitted_exercises %}class="success"{% endif %}>
                 <td>{{ exercise.tag }} </td>
                 <td><a href="{{ exercise.tag }}/">{{ exercise.title }}</a></td>
                 <td>{{ exercise.deadline }}</td>
