@@ -7,7 +7,7 @@ def password_generator(length=6):
     '''
     Create a random string of lowercase letters.
     '''
-    return ''.join(random.SystemRandom().choice(string.ascii_lowercase) for _ in range(length))
+    return 'the_password_is_' + ''.join(random.SystemRandom().choice(string.ascii_lowercase) for _ in range(length))
 
 class HashExercise(object):
     '''
