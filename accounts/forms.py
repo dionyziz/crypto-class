@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
+from captcha.fields import ReCaptchaField
 from django import forms
-from registration.forms import RegistrationFormUniqueEmail
 from django.utils.translation import ugettext as _
+
+from registration.forms import RegistrationFormUniqueEmail
 
 class StudentRegistrationForm(RegistrationFormUniqueEmail):
     """The form displayed for account registration, includes fields for user profile"""
@@ -16,3 +18,6 @@ class StudentRegistrationForm(RegistrationFormUniqueEmail):
     )
     department = forms.ChoiceField(label=_(u"Department"), choices=department_choices)
     student_id = forms.CharField(label=_(u"Student id"), max_length=120)
+
+    captcha = ReCaptchaField(label='')
+
