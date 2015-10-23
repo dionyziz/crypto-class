@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
+    'captcha',
     'lectures',
     'exercises',
     'exercises.exercise1',
@@ -120,6 +121,11 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
 LOGIN_REDIRECT_URL = '/exercises'
+
+# ReCaptcha fields
+RECAPTCHA_PUBLIC_KEY = '6Le4cA8TAAAAADY7bsnOZttqFZkbHeDYf0uUhS3M'
+RECAPTCHA_PRIVATE_KEY = ''
+NOCAPTCHA = True
 
 BOOTSTRAP3 = {
     # The URL to the jQuery JavaScript file
