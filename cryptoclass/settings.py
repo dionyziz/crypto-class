@@ -211,4 +211,6 @@ AWS_SES_REGION_NAME = os.environ.get('AWS_SES_REGION_NAME', 'eu-west-1')
 AWS_SES_REGION_ENDPOINT = os.environ.get('AWS_SES_REGION_ENDPOINT', 'email.eu-west-1.amazonaws.com')
 
 EMAIL_BACKEND = 'django_ses.SESBackend' if AWS_SES_ACCESS_KEY_ID else 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'noreply@localhost')
+
 
