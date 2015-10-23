@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 from captcha.fields import ReCaptchaField
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import ugettext as _
+
+from captcha.fields import ReCaptchaField
 
 from registration.forms import RegistrationFormUniqueEmail
 
@@ -19,5 +22,8 @@ class StudentRegistrationForm(RegistrationFormUniqueEmail):
     department = forms.ChoiceField(label=_(u"Department"), choices=department_choices)
     student_id = forms.CharField(label=_(u"Student id"), max_length=120)
 
+    captcha = ReCaptchaField(label='')
+
+class StudentLoginForm(AuthenticationForm):
     captcha = ReCaptchaField(label='')
 
