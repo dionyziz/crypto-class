@@ -140,9 +140,11 @@ def submit_autograding_exercise(request, exercise):
         context = {
             'user': user,
             'exercise': exercise,
+            'form': form,
             'generated_metadata': exercise.get_generated_metadata(user),
             'generated_message': exercise.get_generated_message(user)
         }
+
         return render(request, 'exercises/detail.html', context)
 
 def submit_theoretical_exercise(request, exercise):
@@ -183,6 +185,7 @@ def submit_theoretical_exercise(request, exercise):
         context = {
             'user': user,
             'exercise': exercise,
+            'form': form,
         }
         return render(request, 'exercises/detail.html', context)
 
