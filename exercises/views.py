@@ -36,14 +36,19 @@ def index(request):
 
     active_exercises = [ exercise for exercise in exercise_list if exercise.can_be_submitted() ]
     past_exercises = [ exercise for exercise in exercise_list if exercise not in active_exercises ]
-    submitted_exercises = [ exercise for exercise in exercise_list if is_exercise_submitted_by(exercise, request.user) ]
 
     context = {
-            'user': request.user,
-            'active_exercises': active_exercises,
-            'past_exercises': past_exercises,
-            'submitted_exercises': submitted_exercises,
-        }
+        'user': request.user,
+        'active_exercises': active_exercises,
+        'past_exercises': past_exercises,
+    }
+
+    if request.user.is_authenticated():
+        submitted_exercises = [ exercise for exercise in exercise_list if is_exercise_submitted_by(exercise, request.user) ]
+        context.update({
+            'submitted_exercises': submitted_exercises
+        })
+
     return render(request, 'exercises/index.html', context)
 
 def detail(request, exercise_tag):
