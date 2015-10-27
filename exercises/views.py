@@ -20,34 +20,22 @@ def homepage(request):
     context = {'user': request.user}
     return render(request, 'index.html', context)
 
-def is_exercise_submitted_by(exercise, user):
-    if exercise.type == SubmittableExercise.THEORETICAL:
-        submissions = FileSubmission.objects.filter(exercise=exercise, user=user)
-    else:
-        submissions = Submission.objects.filter(exercise=exercise, user=user)
-
-    return True if submissions else False
-
 def index(request):
     if waffle.flag_is_active(request, 'view_exercises'):
         exercise_list = SubmittableExercise.objects.order_by('tag')
     else:
         exercise_list = []
 
-    active_exercises = [ exercise for exercise in exercise_list if exercise.can_be_submitted() ]
-    past_exercises = [ exercise for exercise in exercise_list if exercise not in active_exercises ]
+    active_exercises = [ (exercise, exercise.get_status(request.user))
+                            for exercise in exercise_list if exercise.can_be_submitted() ]
+    past_exercises = [ (exercise, exercise.get_status(request.user))
+                            for exercise in exercise_list if exercise not in [ exercise[0] for exercise in active_exercises ] ]
 
     context = {
         'user': request.user,
         'active_exercises': active_exercises,
         'past_exercises': past_exercises,
     }
-
-    if request.user.is_authenticated():
-        submitted_exercises = [ exercise for exercise in exercise_list if is_exercise_submitted_by(exercise, request.user) ]
-        context.update({
-            'submitted_exercises': submitted_exercises
-        })
 
     return render(request, 'exercises/index.html', context)
 
@@ -152,6 +140,7 @@ def submit_theoretical_exercise(request, exercise):
     supported_filetypes = [
         'application/vnd.oasis.opendocument.formula',
         'application/pdf',
+        'application/x-pdf',
         'application/msword',
         'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
     ]

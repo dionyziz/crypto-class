@@ -59,8 +59,30 @@
                     </button>
                 {% endbuttons %}
             </form>
-            
+                       
             {% if file_submission %}
+            <h3>Τελευταία υποβολή: <span class="glyphicon glyphicon-ok" /></h4>
+            
+            <table class="table table-bordered">
+                <colgroup>
+                    <col class="col-xs-2" />
+                    <col class="col-xs-7" />
+                </colgroup>
+                <tr>
+                    <td><b>Κατάσταση υποβολής</b></td>
+                    <td>{% if file_submission.score == -1 %}Έτοιμη προς διόρθωση{% else %}<b>Βαθμολογία: {{ file_submission.score }}/10</b>{% endif %}</td>
+                </tr>
+                <tr>
+                    <td><b>Αρχείο υποβολής</b></td>
+                    <td><a href="{% url 'exercise-last_submission' exercise_tag=exercise.tag %}">{{ file_submission.uploaded_filename }}</a> </td>
+                </tr>
+                <tr>
+                    <td><b>Ημερομηνία/ωρα υποβολής<b></td>
+                    <td>{{ file_submission.time_submitted }}</td>
+                </tr>
+            </table>
+
+            <!--
             <table class="table">
                 <tr class="{{ file_submission.get_colored_status }}">
                     <th>Τελευταία Υποβολή: <span class="glyphicon glyphicon-ok"></span></th>
@@ -76,6 +98,8 @@
                     <td>{{ file_submission.time_submitted }}</td>
                 </tr>
             </table>
+            -->
+
             {% endif %}
 
             {% else %}
