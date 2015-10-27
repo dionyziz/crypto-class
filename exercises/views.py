@@ -140,6 +140,7 @@ def submit_theoretical_exercise(request, exercise):
     supported_filetypes = [
         'application/vnd.oasis.opendocument.formula',
         'application/pdf',
+        'application/x-pdf',
         'application/msword',
         'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
     ]
