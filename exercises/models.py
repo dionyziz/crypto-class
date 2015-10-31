@@ -31,6 +31,39 @@ class SubmittableExercise(models.Model):
     def __unicode__(self):
         return unicode("%s: %s" % (self.tag, self.title))
 
+    def get_status(self, user):
+        if not user.is_authenticated():
+            return ''
+
+        if self.type == SubmittableExercise.THEORETICAL:
+            submissions = FileSubmission.objects.filter(exercise=self, user=user)
+            if not submissions:
+                return ''
+
+            last_submission = submissions.order_by('-time_submitted')[0]
+
+            if last_submission.score >= 0:
+                return 'success'
+            else:
+                return 'active'
+        else:
+            submissions = Submission.objects.filter(exercise=self, user=user)
+            if not submissions:
+                return ''
+
+            last_submission = submissions.order_by('-time_submitted')[0]
+
+            if last_submission.is_solution:
+                return 'success'
+            else:
+                return ''
+
+    def is_submitted_by(self, user):
+        if self.type == SubmittableExercise.THEORETICAL:
+            return True if FileSubmission.objects.filter(exercise=self, user=user) else False
+        else:
+            return True if SubmittableExercise.objects.filter(exercise=self, user=user) else False
+
     def can_be_submitted(self):
         return True
 

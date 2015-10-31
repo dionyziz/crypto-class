@@ -26,14 +26,17 @@ def index(request):
     else:
         exercise_list = []
 
-    active_exercises = [ exercise for exercise in exercise_list if exercise.can_be_submitted() ]
-    past_exercises = [ exercise for exercise in exercise_list if exercise not in active_exercises ]
+    active_exercises = [ (exercise, exercise.get_status(request.user))
+                            for exercise in exercise_list if exercise.can_be_submitted() ]
+    past_exercises = [ (exercise, exercise.get_status(request.user))
+                            for exercise in exercise_list if exercise not in [ exercise[0] for exercise in active_exercises ] ]
 
     context = {
-            'user': request.user,
-            'active_exercises': active_exercises,
-            'past_exercises': past_exercises,
-        }
+        'user': request.user,
+        'active_exercises': active_exercises,
+        'past_exercises': past_exercises,
+    }
+
     return render(request, 'exercises/index.html', context)
 
 def detail(request, exercise_tag):
@@ -125,9 +128,11 @@ def submit_autograding_exercise(request, exercise):
         context = {
             'user': user,
             'exercise': exercise,
+            'form': form,
             'generated_metadata': exercise.get_generated_metadata(user),
             'generated_message': exercise.get_generated_message(user)
         }
+
         return render(request, 'exercises/detail.html', context)
 
 def submit_theoretical_exercise(request, exercise):
@@ -137,6 +142,7 @@ def submit_theoretical_exercise(request, exercise):
     supported_filetypes = [
         'application/vnd.oasis.opendocument.formula',
         'application/pdf',
+        'application/x-pdf',
         'application/msword',
         'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
     ]
@@ -168,6 +174,7 @@ def submit_theoretical_exercise(request, exercise):
         context = {
             'user': user,
             'exercise': exercise,
+            'form': form,
         }
         return render(request, 'exercises/detail.html', context)
 

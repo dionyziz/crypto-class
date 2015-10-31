@@ -6,7 +6,7 @@
 
 <div class="container" class="col-md-8 col-md-offset-2">
     {% if user.is_authenticated %}
-        <p>Γειά σου, {{ user.username }}. <a href="{% url 'logout' %}">Αποσύνδεση</a></p>
+        <p>Γεια σου, {{ user.username }}. <a href="{% url 'logout' %}">Αποσύνδεση</a></p>
     {% endif %}
     
     <div class="clearfix"></div>
@@ -19,8 +19,8 @@
                 <th>Τίτλος άσκησης </th>
                 <th>Παράδοση μέχρι </th>
             </tr>
-            {% for exercise in active_exercises %}
-            <tr>
+            {% for exercise, status in active_exercises %}
+            <tr class="{{ status }}">
                 <td>{{ exercise.tag }} </td>
                 <td><a href="{{ exercise.tag }}/">{{ exercise.title }}</a></td>
                 <td>{{ exercise.deadline }}</td>
@@ -40,8 +40,8 @@
                 <th>#</th>
                 <th>Τίτλος άσκησης </th>
             </tr>
-            {% for exercise in past_exercises %}
-            <tr>
+            {% for exercise, status in past_exercises %}
+            <tr class="{{ status }}">
                 <td>{{ exercise.tag }} </td>
                 <td><a href="{{ exercise.tag }}/">{{ exercise.title }}</a></td>
             </tr>
