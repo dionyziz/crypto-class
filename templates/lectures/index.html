@@ -26,9 +26,13 @@
                         </p>
                         <p>{{ lecture.description }}</p>
 
-			{% if lecture.video and lecture.tag == 2 and user.is_authenticated  %}
+			{% if lecture.video and lecture.tag == 2 and user.is_authenticated %}
 			<p>
 			{% video lecture.video 'small' %}
+			</p>
+			{% elif lecture.video and lecture.tag == 2 %}
+			<p>
+			Πρέπει να συνδεθείς στον λογαριασμό σου για να δεις την διάλεξη!
 			</p>
 			{% elif lecture.video %}
 			<p>
