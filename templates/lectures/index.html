@@ -26,7 +26,11 @@
                         </p>
                         <p>{{ lecture.description }}</p>
 
-			{% if lecture.video %}
+			{% if lecture.video and lecture.tag == 2 and user.is_authenticated  %}
+			<p>
+			{% video lecture.video 'small' %}
+			</p>
+			{% elif lecture.video %}
 			<p>
 			{% video lecture.video 'small' %}
 			</p>
