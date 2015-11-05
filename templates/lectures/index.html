@@ -22,23 +22,19 @@
                     <li>
                         <p>
                             <span class="bold">{{ lecture.title }}</span>
-                            <span class="italic">(Διδάσκων: {{ lecture.teachers.all|join:", " }})</span. 
+                            <span class="italic">(Διδάσκων: {{ lecture.teachers.all|join:", " }})</span>
                         </p>
                         <p>{{ lecture.description }}</p>
 
-			{% if lecture.video and lecture.tag == 2 and user.is_authenticated %}
-			<p>
-			{% video lecture.video 'small' %}
-			</p>
-			{% elif lecture.video and lecture.tag == 2 %}
-			<p>
-			Πρέπει να συνδεθείς στον λογαριασμό σου για να δεις την διάλεξη!
-			</p>
-			{% elif lecture.video %}
-			<p>
-			{% video lecture.video 'small' %}
-			</p>
-			{% endif %}
+                        {% if lecture.video %}
+                            <p>
+                            {% if lecture.video_is_public or user.is_authenticated %}
+                                {% video lecture.video 'small' %}
+                            {% else %}
+                                Πρέπει να συνδεθείς στον λογαριασμό σου για να δεις την διάλεξη!
+                            {% endif %}
+                            </p>
+                        {% endif %}
 
                         {% if lecture.slides.all %}
                         <p>Διαφάνειες</p>
