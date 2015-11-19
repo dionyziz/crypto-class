@@ -1,15 +1,20 @@
-from django.contrib import admin
-from .models import BonusLink, BonusView
+# -*- coding: utf8 -*-
+import os.path
 
+from django.conf import settings
+from django.contrib import admin
+from django.http import HttpResponse
+
+from .models import BonusLink, BonusView
 from .models import SubmittableExercise, GeneratedExercise, Submission, FileSubmission
 
 class MultipleSubmissionsListFilter(admin.SimpleListFilter):
-    title = ('Multiple Submissions')
+    title = (u'Αποκρυψη παλαιων υποβολών')
     parameter_name = 'only_last'
 
     def lookups(self, request, model_admin):
         return (
-            (True, 'Latest'),
+            (True, u'Ναι'),
         )
 
     def queryset(self, request, queryset):
@@ -42,11 +47,16 @@ class MultipleSubmissionsListFilter(admin.SimpleListFilter):
 
 
 class FileSubmissionAdmin(admin.ModelAdmin):
+    actions = ['download_zip']
     list_display = ('exercise', 'user', 'time_submitted' )
     list_filter = ('exercise__tag', MultipleSubmissionsListFilter, )
 
     ordering = ['-exercise__tag', 'user', '-time_submitted']
 
+    def download_zip(self, request, queryset):
+        pass
+
+    download_zip.short_description = u"Κατεβασμα ZIP αρχείου με τις επιλεγμένες υποβολές"
 
 admin.site.register(Submission)
 admin.site.register(FileSubmission, FileSubmissionAdmin)
