@@ -165,10 +165,9 @@ class FileSubmission(models.Model):
     uploaded_filename = models.CharField(max_length=100)
 
     def __unicode__(self):
-        return u'[%s] %s %s (%s)' % (
+        return u'[%s] %s (%s)' % (
                 self.exercise.tag,
                 self.user.username,
-                self.file.url,
                 self.time_submitted.strftime('%d/%m/%y %H:%M')
                 )
 
@@ -197,4 +196,3 @@ class BonusView(models.Model):
 
     def __unicode__(self):
         return u'%s view %s' % (self.user.username, self.link.secret)
-
