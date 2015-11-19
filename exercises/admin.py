@@ -2,7 +2,7 @@
 import os.path
 
 from django.conf import settings
-from django.contrib import admin
+from django.contrib import admin, messages
 from django.http import HttpResponse
 
 from .models import BonusLink, BonusView
@@ -54,7 +54,28 @@ class FileSubmissionAdmin(admin.ModelAdmin):
     ordering = ['-exercise__tag', 'user', '-time_submitted']
 
     def download_zip(self, request, queryset):
-        pass
+        from zipfile import ZipFile
+
+        # Get the files from submissions
+        files = [ os.path.join(settings.MEDIA_ROOT, subm.file.name)
+                        for subm in queryset ]
+
+        # Create the ZIP archive
+        zip_path = '/tmp/file_submissions.zip'
+        try:
+            with ZipFile(zip_path, 'w') as zip_file:
+                for f in files:
+                    zip_file.write(filename=f, arcname=os.path.split(f)[1])
+                zip_file.testzip()
+        except Exception as e:
+            self.message_user(request, 'Error: %s' % e, level=messages.ERROR)
+            return
+
+        # Send the response
+        zip_file = open(zip_path, 'r')
+        response = HttpResponse(zip_file, content_type='appliction/zip')
+        response['Content-Disposition'] = 'attachment; filename=file_submissions.zip'
+        return response
 
     download_zip.short_description = u"Κατεβασμα ZIP αρχείου με τις επιλεγμένες υποβολές"
 
