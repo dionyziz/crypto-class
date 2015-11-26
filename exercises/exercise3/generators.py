@@ -1,4 +1,3 @@
-import string
 import random
 from .models import RSAValues
 from exercises.registry import register_generator
