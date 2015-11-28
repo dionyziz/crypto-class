@@ -22,7 +22,10 @@ def homepage(request):
 
 def index(request):
     if waffle.flag_is_active(request, 'view_exercises'):
-        exercise_list = SubmittableExercise.objects.order_by('tag')
+        exercise_list = sorted(
+                SubmittableExercise.objects.all(),
+                key=lambda ex: tuple([ int(part) for part in ex.tag.split('.') ])
+                )
     else:
         exercise_list = []
 
