@@ -5,9 +5,16 @@
 
 {% block maincontent %}
 <div class="container" class="col-md-8 col-md-offset-2" id="exercise_detail">
+
+    {% if exercise.deadline_passed %}
+        <div class="alert alert-warning">
+            <strong>Η προθεσμία υποβολών έχει τελειώσει!</strong> Μπορείς, ωστόσο, ακόμα να υποβάλλεις την λύση/απάντηση σου, χωρίς όμως αυτή να βαθμολογηθεί.
+        </div>
+    {% endif %}
+
     <h1> {{ exercise.title }} </h1>
     <h5> <u>Προθεσμία:</u> {{ exercise.deadline }} </h5>
-    
+
     {% if exercise.description %}
         <p>{{ exercise.description }}</p>
     {% endif %}
@@ -19,10 +26,10 @@
     {% if exercise.statement_url%}
         <div class="row">
             <iframe class="container" src="http://docs.google.com/gview?url={{ exercise.statement_url }}&embedded=true"
-                frameborder="0" height="550px"></iframe>  
+                frameborder="0" height="550px"></iframe>
         </div>
     {% endif %}
-    
+
     {% if not exercise.statement_url and not exercise.description %}
         <h5>Δεν υπάρχει διαθέσιμη εκφώνηση. Παρακαλούμε προσπαθήστε αργότερα.</h5>
         <div class="clearfix"></div>
@@ -59,10 +66,10 @@
                     </button>
                 {% endbuttons %}
             </form>
-                       
+
             {% if file_submission %}
             <h3>Τελευταία υποβολή: <span class="glyphicon glyphicon-ok" /></h4>
-            
+
             <table class="table table-bordered">
                 <colgroup>
                     <col class="col-xs-2" />

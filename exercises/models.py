@@ -64,8 +64,8 @@ class SubmittableExercise(models.Model):
         else:
             return True if SubmittableExercise.objects.filter(exercise=self, user=user) else False
 
-    def can_be_submitted(self):
-        return True
+    def deadline_passed(self):
+        return True if self.deadline < timezone.now() else False
 
     def get_generated(self, user):
         if user.is_authenticated():
