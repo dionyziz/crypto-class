@@ -26,18 +26,14 @@ def index(request):
                 SubmittableExercise.objects.all(),
                 key=lambda ex: tuple([ int(part) for part in ex.tag.split('.') ])
                 )
+        exercise_list = [ (exercise, exercise.get_status(request.user))
+                            for exercise in exercise_list ]
     else:
         exercise_list = []
 
-    active_exercises = [ (exercise, exercise.get_status(request.user))
-                            for exercise in exercise_list if exercise.can_be_submitted() ]
-    past_exercises = [ (exercise, exercise.get_status(request.user))
-                            for exercise in exercise_list if exercise not in [ exercise[0] for exercise in active_exercises ] ]
-
     context = {
         'user': request.user,
-        'active_exercises': active_exercises,
-        'past_exercises': past_exercises,
+        'exercises': exercise_list,
     }
 
     return render(request, 'exercises/index.html', context)

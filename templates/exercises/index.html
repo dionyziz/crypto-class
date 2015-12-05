@@ -8,10 +8,10 @@
     {% if user.is_authenticated %}
         <p>Γεια σου, {{ user.username }}. <a href="{% url 'logout' %}">Αποσύνδεση</a></p>
     {% endif %}
-    
+
     <div class="clearfix"></div>
 
-    {% if active_exercises %}
+    {% if exercises %}
         <h4>Ενεργές ασκήσεις</h4>
         <table class="table table-hover">
             <tr>
@@ -19,7 +19,7 @@
                 <th>Τίτλος άσκησης </th>
                 <th>Παράδοση μέχρι </th>
             </tr>
-            {% for exercise, status in active_exercises %}
+            {% for exercise, status in exercises %}
             <tr class="{{ status }}">
                 <td>{{ exercise.tag }} </td>
                 <td><a href="{{ exercise.tag }}/">{{ exercise.title }}</a></td>
@@ -30,24 +30,8 @@
     {% else %}
         <p> Δεν έχουν ανακοινωθεί ασκήσεις ακόμη. </p>
     {% endif %}
-    
-    <div class="clearfix"></div>
 
-    {% if past_exercises %}
-        <h4>Προηγούμενες ασκήσεις</h4>
-        <table class="table table-hover">
-            <tr>
-                <th>#</th>
-                <th>Τίτλος άσκησης </th>
-            </tr>
-            {% for exercise, status in past_exercises %}
-            <tr class="{{ status }}">
-                <td>{{ exercise.tag }} </td>
-                <td><a href="{{ exercise.tag }}/">{{ exercise.title }}</a></td>
-            </tr>
-            {% endfor %}
-        </table>
-    {% endif %}
+    <div class="clearfix"></div>
 </div>
 
 {% endblock %}
