@@ -60,12 +60,12 @@ class SubmittableExercise(models.Model):
 
     def is_submitted_by(self, user):
         if self.type == SubmittableExercise.THEORETICAL:
-            return True if FileSubmission.objects.filter(exercise=self, user=user) else False
-        else:
-            return True if SubmittableExercise.objects.filter(exercise=self, user=user) else False
+            return FileSubmission.objects.filter(exercise=self, user=user)
+
+        return SubmittableExercise.objects.filter(exercise=self, user=user)
 
     def deadline_passed(self):
-        return True if self.deadline < timezone.now() else False
+        return self.deadline < timezone.now()
 
     def get_generated(self, user):
         if user.is_authenticated():
