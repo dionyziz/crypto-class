@@ -4,7 +4,7 @@ from exercises.registry import register_generator
 
 class RSAWienerExercise(object):
     def __init__(self, args_dict=None):
-        if args_dict is None:
+        if len(args_dict) == 1:
             args_dict = {}
         try:
             if 'metadata' in args_dict:
