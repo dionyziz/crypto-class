@@ -16,7 +16,7 @@ def validate(metadata, onion_url):
     if r.status_code != 200:
         return False
 
-    return metadata.user.email in r.text
+    return metadata['user_email'] in r.text
 
 
 register_grader('20.0', validate)
