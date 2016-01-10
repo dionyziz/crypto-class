@@ -15,8 +15,8 @@ class Base64Exercise(object):
     '''
     base64 encoding and decoding functions for the first hands-on exercise of crypto-class.
     '''
-    def __init__(self, args_dict = None):
-        if args_dict is None:
+    def __init__(self, args_dict=None):
+        if len(args_dict) == 1:
             args_dict = {}
         try:
             if 'metadata' in args_dict:
@@ -44,8 +44,8 @@ class Rot13Exercise(object):
     '''
     rot13 encoding and decoding functions for the first hands-on exercise of crypto-class.
     '''
-    def __init__(self, args_dict = None):
-        if args_dict is None:
+    def __init__(self, args_dict=None):
+        if len(args_dict) == 1:
             args_dict = {}
         try:
             if 'metadata' in args_dict:
@@ -82,8 +82,8 @@ class SubstitutionExercise(object):
     '''
     Substitution encoding and decoding functions for the first hands-on exercise of crypto-class.
     '''
-    def __init__(self, args_dict = None):
-        if args_dict is None:
+    def __init__(self, args_dict=None):
+        if len(args_dict) == 1:
             args_dict = {}
         self.exercise = ''
         if 'metadata' in args_dict:

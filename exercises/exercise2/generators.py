@@ -13,7 +13,7 @@ class HashExercise(object):
     '''
     SHA256 encoding class for the hands-on exercise of lesson 6 of crypto-class.
     '''
-    def __init__(self):
+    def __init__(self, arg_dict=None):
         self.metadata = {}
         self.metadata['password'] = password_generator()
         self.encode()

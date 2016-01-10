@@ -79,7 +79,9 @@ class SubmittableExercise(models.Model):
         except KeyError:
             return None
 
-        generator = generator_class()
+        generator = generator_class({
+            'user': user
+        })
         metadata = generator.metadata
         generated = GeneratedExercise()
         generated.exercise = self
