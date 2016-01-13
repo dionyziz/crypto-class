@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     'exercises.exercise2',
     'exercises.exercise3',
     'exercises.exercise4',
+    'exercises.exercise5',
     'bootstrap3',
     'waffle',
     'embed_video',
