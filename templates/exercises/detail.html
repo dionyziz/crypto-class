@@ -20,7 +20,7 @@
     {% endif %}
 
 	{% if generated_message %}
-        <pre>{{ generated_message }}</pre>
+        <pre>{% autoescape off %}{{ generated_message }}{% endautoescape %}</pre>
 	{% endif %}
 
     {% if exercise.statement_url%}

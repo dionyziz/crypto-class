@@ -1,17 +1,18 @@
-from .models import HttpsPassword
+from django.conf import settings
 from exercises.registry import register_generator
-import random
 
+from .models import HttpsPassword
+import random
 
 class HttpsExercise(object):
     '''
     Hands-on exercise for HTTPS traffic decryption
     '''
-    def __init__(self):
+    def __init__(self, args_dict=None):
         exercise_packet = random.choice(HttpsPassword.objects.all())
         self.metadata = {
             'password': exercise_packet.password
         }
-        self.message = exercise_packet.filename
+        self.message = '<a href="%s">Download file</a>' % (settings.MEDIA_URL + exercise_packet.filename)
 
 register_generator('18.0', HttpsExercise)
