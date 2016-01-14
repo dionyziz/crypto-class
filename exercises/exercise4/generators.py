@@ -10,6 +10,13 @@ class OnionExercise(object):
             exit(1)
 
         user = args_dict['user']
+
+        if not user.is_authenticated():
+            self.message = 'email@example.com'
+            self.metadata = { }
+            return
+
+        # user is authenticated
         self.metadata = {
             'user_email': user.email
         }
