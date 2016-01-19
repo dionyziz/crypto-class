@@ -22,4 +22,4 @@ class PGPExercise(object):
         }
         self.message = user.email
 
-register_generator('20.0', PGPExercise)
+register_generator('20.1', PGPExercise)

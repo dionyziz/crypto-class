@@ -22,7 +22,7 @@ def hasAtLeastOneSignature(verified):
 # Assumes lookupMIT works, otherwise I can't fetch the pub key
 def hasExpirationDate(verified):
     result = gpg.search_keys(verified.key_id, 'pgp.mit.edu')
-    return len(result) > 0 and result[0]['expires']
+    return len(result) > 0 and len(result[0]['expires']) > 0
 
 # Assumes lookupMIT works, otherwise I can't fetch the pub key
 def has4096Length(verified):
@@ -41,17 +41,20 @@ def importKeyFromData(signed_data):
     return
 
 def validate(metadata, signed_data):
-
-    importKeyFromData(signed_data)
+    #importKeyFromData(signed_data)
     verified = gpg.verify(signed_data)
-    lookedup = lookupMIT(verified) 
-    hasStudentEmail = hasStudentEmail(verified, metadata['user_email'])
+
+    # Check is msg was signed. If not, there's no need to continue!
+    if not verified.key_id:
+        return False
+
+    lookedup = lookupMIT(verified)
+    hasEmail = hasStudentEmail(verified, metadata['user_email'])
     oneSignature = hasAtLeastOneSignature(verified)
     hasExpiration = hasExpirationDate(verified)
     has4096 = has4096Length(verified)
 
-    # print_info(verified)
-    return verified and lookedup and hasStudentEmail and oneSignature and hasExpiration and has4096
+    #print_info(verified)
+    return verified and lookedup and hasEmail and oneSignature and hasExpiration and has4096
 
-register_grader('20.0', validate)
-
+register_grader('20.1', validate)
