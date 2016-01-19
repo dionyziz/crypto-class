@@ -34,8 +34,15 @@ def lookupMIT(verified):
     result = gpg.search_keys(verified.key_id, 'pgp.mit.edu')
     return len(result) > 0
 
+# Assumes lookupMIT works, otherwise I can't fetch the pub key
+def importKeyFromData(signed_data):
+    verified = gpg.verify(signed_data)
+    result = gpg.recv_keys(verified.key_id, 'pgp.mit.edu')
+    return
+
 def validate(metadata, signed_data):
 
+    importKeyFromData(signed_data)
     verified = gpg.verify(signed_data)
     lookedup = lookupMIT(verified) 
     hasStudentEmail = hasStudentEmail(verified, metadata['user_email'])
