@@ -1,5 +1,6 @@
 # -*- coding: utf8 -*-
 from django import forms
+from django.forms import widgets
 
 from captcha.fields import ReCaptchaField
 
@@ -12,7 +13,9 @@ class UploadFileForm(forms.Form):
     captcha = ReCaptchaField(label='')
 
 class TextAnswerForm(forms.Form):
-    answer = forms.CharField(label=u'Απάντηση')
+    answer = forms.CharField(
+                    label=u'Απάντηση',
+                    widget=widgets.Textarea(attrs={'rows': 1 })
+                    )
 
     captcha = ReCaptchaField(label='')
-
