@@ -18,8 +18,6 @@ def validate(metadata, onion_url):
     except requests.exceptions.Timeout:
         return False
 
-    is_solution = metadata['user_email'] in r.text
-    return (is_solution, None)
-
+    return metadata['user_email'] in r.text
 
 register_grader('20.0', validate)

@@ -4,7 +4,6 @@ def validate(metadata, input_pass):
     """
     Check if private-key in metadata matches the user input
     """
-    is_solution = True if metadata['private-key'] == input_pass else False
-    return (is_solution, None)
+    return metadata['private-key'] == input_pass
 
 register_grader('14.0', validate)
