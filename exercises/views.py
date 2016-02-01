@@ -50,12 +50,16 @@ def detail(request, exercise_tag):
     else:
         submitted_wrong_answer = False
 
+    # Show error msg if available
+    submission_error_msg = request.GET.get('error_msg', '')
+
     context = {
         'user': user,
         'exercise': exercise,
         'generated_metadata': exercise.get_generated_metadata(user),
         'generated_message': exercise.get_generated_message(user),
-        'submitted_wrong_answer': submitted_wrong_answer
+        'submitted_wrong_answer': submitted_wrong_answer,
+        'submission_error_msg': submission_error_msg
     }
 
     if user.is_authenticated():
@@ -104,9 +108,9 @@ def submit_autograding_exercise(request, exercise):
     if form.is_valid():
         answer = form.cleaned_data['answer']
 
-        print 'solution', metadata, answer
+        #print 'solution', metadata, answer
         grader_function = get_grader(exercise.tag)
-        is_solution = grader_function(metadata, answer)
+        (is_solution, error_msg) = grader_function(metadata, answer)
 
         # Save submission
         submission = Submission(
@@ -121,6 +125,10 @@ def submit_autograding_exercise(request, exercise):
         redirect_url = reverse('exercise_detail', kwargs={'exercise_tag': exercise.tag})
         if not is_solution:
             redirect_url += '?wrong_answer=1'
+            # Send the error message returned from the grader
+            if error_msg:
+                redirect_url += '&error_msg=' + error_msg
+
 
         return HttpResponseRedirect(redirect_url)
     else:
