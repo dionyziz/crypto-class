@@ -55,6 +55,7 @@ def validate(metadata, signed_data):
     has4096 = has4096Length(verified)
 
     #print_info(verified)
-    return verified and lookedup and hasEmail and oneSignature and hasExpiration and has4096
+    is_solution = verified and lookedup and hasEmail and oneSignature and hasExpiration and has4096
+    return (is_solution, error_msg)
 
 register_grader('20.1', validate)

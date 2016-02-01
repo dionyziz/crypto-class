@@ -4,7 +4,8 @@ def validate(metadata, input_pass):
     '''
     Check if password in metadata and user input match.
     '''
-    return True if metadata['password'] == input_pass else False
+    is_solution = True if metadata['password'] == input_pass else False
+    return (is_solution, None)
 
 register_grader('1.1', validate)
 register_grader('1.2', validate)
