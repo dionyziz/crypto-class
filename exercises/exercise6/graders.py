@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import re, sys, gnupg
 from exercises.registry import register_grader
 
@@ -44,18 +46,31 @@ def validate(metadata, signed_data):
     #importKeyFromData(signed_data)
     verified = gpg.verify(signed_data)
 
-    # Check is msg was signed. If not, there's no need to continue!
+    # Check is msg was signed. If not, there's no point to continue
     if not verified.key_id:
-        return False
+        return (False, u'Το κείμενο δεν ειναι υπογεγραμμένο με έγκυρο GPG κλειδί.')
 
     lookedup = lookupMIT(verified)
-    hasEmail = hasStudentEmail(verified, metadata['user_email'])
-    oneSignature = hasAtLeastOneSignature(verified)
-    hasExpiration = hasExpirationDate(verified)
-    has4096 = has4096Length(verified)
+    if not lookedup:
+        return (False, u'Υπάρχει πρόβλημα με το MIT keyserver. Παρακαλούμε προσπαθήστε αργότερα.')
 
-    #print_info(verified)
-    is_solution = verified and lookedup and hasEmail and oneSignature and hasExpiration and has4096
-    return (is_solution, error_msg)
+    hasEmail = hasStudentEmail(verified, metadata['user_email'])
+    if not hasEmail:
+        return (False, u'Δεν βρέθηκε το email σας (%s) στον MIT keyserver.' % (metadata['user_email']))
+
+    oneSignature = hasAtLeastOneSignature(verified)
+    if not oneSignature:
+        return (False, u'Το κλειδί δεν έχει καμία υπογραφή.')
+
+    hasExpiration = hasExpirationDate(verified)
+    if not hasExpiration:
+        return (False, u'Το κλειδί ΔΕΝ έχει ημερομηνία λήξης.')
+
+    has4096 = has4096Length(verified)
+    if not has4096:
+        return (False, u'Το κλειδί ΔΕΝ ειναι μήκους 4096 bits.')
+
+    # Solution is correct!
+    return (True, None)
 
 register_grader('20.1', validate)
