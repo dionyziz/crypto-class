@@ -20,5 +20,4 @@ def validate(metadata, onion_url):
 
     return metadata['user_email'] in r.text
 
-
 register_grader('20.0', validate)

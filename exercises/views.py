@@ -8,6 +8,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponseForbidden, HttpResponse, HttpResponseBadRequest, Http404
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
+from django.utils.http import urlencode
 import waffle
 from .registry import get_grader, get_generator
 
@@ -50,12 +51,16 @@ def detail(request, exercise_tag):
     else:
         submitted_wrong_answer = False
 
+    # Show error msg if available
+    submission_error_msg = request.GET.get('error_msg', '')
+
     context = {
         'user': user,
         'exercise': exercise,
         'generated_metadata': exercise.get_generated_metadata(user),
         'generated_message': exercise.get_generated_message(user),
-        'submitted_wrong_answer': submitted_wrong_answer
+        'submitted_wrong_answer': submitted_wrong_answer,
+        'submission_error_msg': submission_error_msg
     }
 
     if user.is_authenticated():
@@ -104,9 +109,19 @@ def submit_autograding_exercise(request, exercise):
     if form.is_valid():
         answer = form.cleaned_data['answer']
 
-        print 'solution', metadata, answer
+        #print 'solution', metadata, answer
         grader_function = get_grader(exercise.tag)
-        is_solution = grader_function(metadata, answer)
+        grader_result = grader_function(metadata, answer)
+
+        submission_result = { }
+        try:
+            is_solution, error_msg = grader_result
+            submission_result['error_msg'] = error_msg
+        except TypeError:
+            is_solution = grader_result
+
+        if not is_solution:
+            submission_result['wrong_answer'] = 1
 
         # Save submission
         submission = Submission(
@@ -119,10 +134,8 @@ def submit_autograding_exercise(request, exercise):
         submission.save()
 
         redirect_url = reverse('exercise_detail', kwargs={'exercise_tag': exercise.tag})
-        if not is_solution:
-            redirect_url += '?wrong_answer=1'
+        return HttpResponseRedirect('%s?%s' % (redirect_url, urlencode(submission_result)))
 
-        return HttpResponseRedirect(redirect_url)
     else:
         context = {
             'user': user,

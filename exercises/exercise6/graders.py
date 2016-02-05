@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import re, sys, gnupg
 from exercises.registry import register_grader
 
@@ -44,17 +46,34 @@ def validate(metadata, signed_data):
     #importKeyFromData(signed_data)
     verified = gpg.verify(signed_data)
 
-    # Check is msg was signed. If not, there's no need to continue!
+    # Check is msg was signed. If not, there's no point to continue
     if not verified.key_id:
-        return False
+        return False, u'Το κείμενο δεν ειναι υπογεγραμμένο με έγκυρο GPG κλειδί.'
 
     lookedup = lookupMIT(verified)
-    hasEmail = hasStudentEmail(verified, metadata['user_email'])
-    oneSignature = hasAtLeastOneSignature(verified)
-    hasExpiration = hasExpirationDate(verified)
-    has4096 = has4096Length(verified)
+    if not lookedup:
+        return False, u'Το κλειδί σου δεν βρέθηκε στον MIT keyserver. Παρακαλούμε ανέβασε το κλειδί σου και ξαναπροσπάθησε.'
 
-    #print_info(verified)
-    return verified and lookedup and hasEmail and oneSignature and hasExpiration and has4096
+    hasEmail = hasStudentEmail(verified, metadata['user_email'])
+    if not hasEmail:
+        return False, u'Το κλειδί που βρέθηκε στον MIT keyserver (%s) δεν ειναι το ίδιο με το email σου (%s).' % (
+                            verified.username,
+                            metadata['user_email'],
+                            )
+
+    oneSignature = hasAtLeastOneSignature(verified)
+    if not oneSignature:
+        return False, u'Το κλειδί σου δεν έχει λάβει καμία υπογραφή. Λάβε μια υπογραφή, απο εναν συμφοιτητή σου, και ξαναπροσπάθησε.'
+
+    hasExpiration = hasExpirationDate(verified)
+    if not hasExpiration:
+        return False, u'Στο κλειδί σου δεν έχει οριστεί ημερομηνία λήξης. Παρακαλούμε ξαναδημιούργησε το κλειδί σου και ξαναπροσπάθησε.'
+
+    has4096 = has4096Length(verified)
+    if not has4096:
+        return False, u'Το κλειδί σου δεν έχει μήκος 4096 bits. Παρακαλούμε ξαναδημιούργησε το κλειδί σου και ξαναπροσπάθησε.'
+
+    # Solution is correct!
+    return True
 
 register_grader('20.1', validate)

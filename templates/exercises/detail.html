@@ -12,6 +12,12 @@
         </div>
     {% endif %}
 
+    {% if submission_error_msg %}
+        <div class="alert alert-danger">
+            {{ submission_error_msg }}
+        </div>
+    {% endif %}
+
     <h1> {{ exercise.title }} </h1>
     <h5> <u>Προθεσμία:</u> {{ exercise.deadline }} </h5>
 
