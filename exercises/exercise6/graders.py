@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 
 import re, sys, gnupg
+
+from bs4 import BeautifulSoup
+from urllib2 import urlopen
+
 from exercises.registry import register_grader
 
 PGP_MIT_KEYSERVER = 'pgp.mit.edu'
@@ -18,9 +22,22 @@ def hasStudentEmail(verified, student_email):
     return student_email in emailList
 
 # Assumes lookupMIT works, otherwise I can't fetch the pub key
-def hasAtLeastOneSignature(verified):
-    result = gpg.recv_keys(PGP_MIT_KEYSERVER, verified.key_id)
-    return result.n_sigs > 0
+def hasAtLeastOneSignature(verified, student_email):
+    page = urlopen('http://pgp.mit.edu/pks/lookup?op=vindex&search=0x' + verified.key_id)
+    html = page.read()
+
+    soup = BeautifulSoup(html)
+    a_text = [tag.text for tag in soup.find_all('a') if tag.text]
+
+    # Find all email addresses
+    emails = [ ]
+    for text in a_text:
+        match = re.findall(r'[\w\.-]+@[\w\.-]+', text)
+        if len(match) > 0 and (student_email not in match):
+            emails += match
+
+    return len(emails) > 0
+
 
 # Assumes lookupMIT works, otherwise I can't fetch the pub key
 def hasExpirationDate(verified):
@@ -41,7 +58,10 @@ def lookupMIT(verified):
 # Assumes lookupMIT works, otherwise I can't fetch the pub key
 def importKeyFromData(signed_data):
     verified = gpg.verify(signed_data)
+    if not verified.key_id:
+        return 
     result = gpg.recv_keys(PGP_MIT_KEYSERVER, verified.key_id)
+
 
 def validate(metadata, signed_data):
     importKeyFromData(signed_data)
@@ -62,7 +82,7 @@ def validate(metadata, signed_data):
                             metadata['user_email'],
                             )
 
-    oneSignature = hasAtLeastOneSignature(verified)
+    oneSignature = hasAtLeastOneSignature(verified, metadata['user_email'])
     if not oneSignature:
         return False, u'Το κλειδί σου δεν έχει λάβει καμία υπογραφή. Λάβε μια υπογραφή, απο εναν συμφοιτητή σου, και ξαναπροσπάθησε.'
 
