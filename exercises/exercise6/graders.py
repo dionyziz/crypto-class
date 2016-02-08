@@ -3,6 +3,7 @@
 import re, sys, gnupg
 from exercises.registry import register_grader
 
+PGP_MIT_KEYSERVER = 'pgp.mit.edu'
 gpg = gnupg.GPG()
 
 def print_info(decrypted):
@@ -18,32 +19,32 @@ def hasStudentEmail(verified, student_email):
 
 # Assumes lookupMIT works, otherwise I can't fetch the pub key
 def hasAtLeastOneSignature(verified):
-    result = gpg.recv_keys('pgp.mit.edu', verified.key_id)
+    result = gpg.recv_keys(PGP_MIT_KEYSERVER, verified.key_id)
     return result.n_sigs > 0
 
 # Assumes lookupMIT works, otherwise I can't fetch the pub key
 def hasExpirationDate(verified):
-    result = gpg.search_keys(verified.key_id, 'pgp.mit.edu')
+    result = gpg.search_keys(verified.key_id, PGP_MIT_KEYSERVER)
     return len(result) > 0 and len(result[0]['expires']) > 0
 
 # Assumes lookupMIT works, otherwise I can't fetch the pub key
 def has4096Length(verified):
-    result = gpg.search_keys(verified.key_id, 'pgp.mit.edu')
+    result = gpg.search_keys(verified.key_id, PGP_MIT_KEYSERVER)
     return len(result) > 0 and result[0]['length'] == '4096'
 
 # Looks up the key id in pgp.mit.edu
 def lookupMIT(verified):
-    result = gpg.search_keys(verified.key_id, 'pgp.mit.edu')
+    result = gpg.search_keys(verified.key_id, PGP_MIT_KEYSERVER)
     return len(result) > 0
 
+# Imports public key to local keyring
 # Assumes lookupMIT works, otherwise I can't fetch the pub key
 def importKeyFromData(signed_data):
     verified = gpg.verify(signed_data)
-    result = gpg.recv_keys(verified.key_id, 'pgp.mit.edu')
-    return
+    result = gpg.recv_keys(PGP_MIT_KEYSERVER, verified.key_id)
 
 def validate(metadata, signed_data):
-    #importKeyFromData(signed_data)
+    importKeyFromData(signed_data)
     verified = gpg.verify(signed_data)
 
     # Check is msg was signed. If not, there's no point to continue
@@ -56,7 +57,7 @@ def validate(metadata, signed_data):
 
     hasEmail = hasStudentEmail(verified, metadata['user_email'])
     if not hasEmail:
-        return False, u'Το κλειδί που βρέθηκε στον MIT keyserver (%s) δεν ειναι το ίδιο με το email σου (%s).' % (
+        return False, u'Το κλειδί που χρησιμοποιήθηκε για την υπογραφή (%s) δεν ειναι το ίδιο με το email που δήλωσες στο crypto-class.gr (%s).' % (
                             verified.username,
                             metadata['user_email'],
                             )
