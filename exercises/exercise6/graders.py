@@ -18,7 +18,7 @@ def print_info(decrypted):
     print('Fingerprint: %s' % decrypted.fingerprint)
 
 def hasStudentEmail(verified, student_email):
-    emailList = re.findall(r"(?<=\<).+(?=\>)", str(verified.username))
+    emailList = re.findall(r"(?<=\<).+(?=\>)", unicode(verified.username))
     return student_email in emailList
 
 # Assumes lookupMIT works, otherwise I can't fetch the pub key
@@ -59,7 +59,7 @@ def lookupMIT(verified):
 def importKeyFromData(signed_data):
     verified = gpg.verify(signed_data)
     if not verified.key_id:
-        return 
+        return
     result = gpg.recv_keys(PGP_MIT_KEYSERVER, verified.key_id)
 
 
