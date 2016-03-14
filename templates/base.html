@@ -26,17 +26,17 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        {% url "homepage" as homepage_url %}
-                        <li {% if request.path == homepage_url %}class="active"{% endif %}><a href="{% url "homepage" %}">Κεντρική</a></li>
+						{% url "lecture_index" as lectures_url %}
+                        <li {% if request.path == lectures_url %}class="active"{% endif %}><a href="{% url "lecture_index" %}">Διαλέξεις</a></li>
                         {% url "exercise_index" as exercises_url %}
                         <li {% if request.path == exercises_url %}class="active"{% endif %}><a href="{% url "exercise_index" %}">Ασκήσεις</a></li>
-                        {% url "lecture_index" as lectures_url %}
-                        <li {% if request.path == lectures_url %}class="active"{% endif %}><a href="{% url "lecture_index" %}">Διαλέξεις</a></li>
+						{% url "info_index" as info_url %}
+                        <li {% if request.path == info_url %}class="active"{% endif %}><a href="{% url "info_index" %}">Διαδικαστικά</a></li>
                         {% url "faq_index" as faq_url %}
                         <li {% if request.path == faq_url %}class="active"{% endif %}><a href="{% url "faq_index" %}">Συχνές Ερωτήσεις</a></li>
                         {% url "references_index" as references_url %}
                         <li {% if request.path == references_url %}class="active"{% endif %}><a href="{% url "references_index" %}">Παραπομπές</a></li>
-                        
+
                         <!--
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
