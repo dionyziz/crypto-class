@@ -17,9 +17,11 @@ from .forms import UploadFileForm, TextAnswerForm
 
 MAXIMUM_FILESIZE = 1024*1024*10
 
+"""
 def homepage(request):
     context = {'user': request.user}
     return render(request, 'index.html', context)
+"""
 
 def index(request):
     if waffle.flag_is_active(request, 'view_exercises'):

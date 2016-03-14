@@ -16,11 +16,13 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, RedirectView
 
 urlpatterns = [
+    url(r'^$', RedirectView.as_view(url='/lectures'), name="homepage"),
     url(r'^references', TemplateView.as_view(template_name='references.html'), name="references_index"),
     url(r'^faq', TemplateView.as_view(template_name='faq.html'), name="faq_index"),
+    url(r'^info', TemplateView.as_view(template_name='info.html'), name="info_index"),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('accounts.urls')),
     url(r'^lectures/', include('lectures.urls')),
